@@ -14,7 +14,7 @@
     .wrap{max-width:1500px;margin:0 auto;padding:20px}
     h1{margin:0 0 8px;font-size:28px}
     .desc{color:var(--muted);line-height:1.55;margin-bottom:18px}
-    .topbar{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+    .topbar{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
     input,select,button{font:inherit}
     input[type=text],select{
       width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);
@@ -65,15 +65,15 @@
   <div class="wrap">
     <h1>문호 스트레이독스 미궁괴담 카드 필터</h1>
     <div class="desc">
-      원문을 억지로 번역하지 않고, <strong>태그 기준 한국어 요약</strong>만 우선 보여주도록 바꾼 버전입니다.
-      등급 필터는 <strong>cards_enriched.json</strong>처럼 rarity가 들어간 파일에서 가장 정확하게 동작합니다.
+      <strong>cards.json</strong>만 읽도록 고정한 버전입니다.
+      리더 태그 / 액티브 태그 / 등급 태그는 모두 <strong>OR 방식</strong>으로 동작합니다.
+      즉, 선택한 태그 중 <strong>하나라도</strong> 맞으면 표시됩니다.
     </div>
 
     <div class="topbar">
       <input id="searchInput" type="text" placeholder="카드명 / 제목 / 요약 검색" />
       <select id="groupSelect"><option value="">소속 전체</option></select>
       <select id="attributeSelect"><option value="">속성 전체</option></select>
-      <select id="raritySelect"><option value="">등급 전체</option></select>
       <select id="sortSelect">
         <option value="id">정렬: 카드 ID</option>
         <option value="name">정렬: 이름</option>
@@ -81,20 +81,28 @@
     </div>
 
     <div class="panel">
-      <div class="section-title">리더 스킬 태그</div>
+      <div class="section-title">등급 태그 (OR)</div>
+      <div id="rarityTags" class="chips"></div>
+      <div class="note">예: SSR, UR를 같이 선택하면 SSR 또는 UR 카드가 표시됩니다.</div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">리더 스킬 태그 (OR)</div>
       <div id="leaderTags" class="chips"></div>
       <div class="actions"><button id="clearLeader">리더 태그 초기화</button></div>
     </div>
 
     <div class="panel">
-      <div class="section-title">액티브 스킬 태그</div>
+      <div class="section-title">액티브 스킬 태그 (OR)</div>
       <div id="activeTags" class="chips"></div>
       <div class="actions">
         <button id="clearActive">액티브 태그 초기화</button>
+        <button id="clearRarity">등급 태그 초기화</button>
         <button id="clearAll">전체 필터 초기화</button>
       </div>
       <div class="note">
-        리더/액티브에서 태그를 선택하면, 각 카드의 해당 스킬 요약도 선택한 태그 위주로만 표시됩니다.
+        각 영역 안에서는 OR 방식입니다. 예를 들어 리더에서 전체공증 + 홍속공증을 같이 고르면 둘 중 하나만 맞아도 표시됩니다.
+        다만 영역끼리는 함께 적용됩니다. 즉 등급 조건, 리더 조건, 액티브 조건을 동시에 만족해야 합니다.
       </div>
     </div>
 
@@ -111,10 +119,10 @@
       cards: [],
       selectedLeaderTags: new Set(),
       selectedActiveTags: new Set(),
+      selectedRarityTags: new Set(),
       search: '',
       group: '',
       attribute: '',
-      rarity: '',
       sort: 'id'
     };
 
@@ -122,12 +130,12 @@
     const activePreferredOrder = ['단일공격','전체공격','전체공증','홍속공증','청속공증','녹속공증','광속공증','암속공증','1턴','2턴','3턴'];
     const rarityOrder = ['R','SR','SSR','UR','EX'];
 
+    const rarityContainer = document.getElementById('rarityTags');
     const leaderContainer = document.getElementById('leaderTags');
     const activeContainer = document.getElementById('activeTags');
     const searchInput = document.getElementById('searchInput');
     const groupSelect = document.getElementById('groupSelect');
     const attributeSelect = document.getElementById('attributeSelect');
-    const raritySelect = document.getElementById('raritySelect');
     const sortSelect = document.getElementById('sortSelect');
     const resultCount = document.getElementById('resultCount');
     const loadState = document.getElementById('loadState');
@@ -185,9 +193,23 @@
       return m ? m[1] : '';
     }
     function extractMultiplier(text){
-      const m = String(text || '').match(/ATK\s*[x×]\s*([0-9.]+)/i) || String(text || '').match(/攻撃力\s*[x×]\s*([0-9.]+)/i);
+      const m = String(text || '').match(/ATK\s*[x×]\s*([0-9.]+)/i) || String(text || '').match(/공격력\s*[x×]\s*([0-9.]+)/i) || String(text || '').match(/攻撃力\s*[x×]\s*([0-9.]+)/i);
       return m ? m[1] : '';
     }
+
+    function dedupeLinePairs(lines){
+      const out = [];
+      const seen = new Set();
+      for (const item of lines){
+        const key = item.join('|');
+        if (!seen.has(key)){
+          seen.add(key);
+          out.push(item);
+        }
+      }
+      return out;
+    }
+
     function leaderSummaryLines(card){
       const tags = Array.isArray(card.leader_tags) ? card.leader_tags : [];
       const chosen = state.selectedLeaderTags.size ? tags.filter(t => state.selectedLeaderTags.has(t)) : tags;
@@ -200,8 +222,9 @@
         else if (tag === '포트마피아공증') lines.push([tag, `포트 마피아 공격력 ${pct || '?'}% 증가`]);
         else if (tag.endsWith('속공증')) lines.push([tag, `${tag.replace('공증','')} 공격력 ${pct || '?'}% 증가`]);
       }
-      return lines;
+      return dedupeLinePairs(lines);
     }
+
     function activeSummaryLines(card){
       const tags = Array.isArray(card.active_tags) ? card.active_tags : [];
       const chosen = state.selectedActiveTags.size ? tags.filter(t => state.selectedActiveTags.has(t)) : tags;
@@ -215,63 +238,76 @@
         else if (tag === '전체공격') lines.push([tag, `적 전체에게 공격력 ${mul || '?'}배 대미지`]);
         else if (tag === '전체공증') lines.push([tag, `팀 전체 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
         else if (tag.endsWith('속공증')) lines.push([tag, `${tag.replace('공증','')} 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
-        else if (['1턴','2턴','3턴'].includes(tag) && !lines.some(x => x[0] === tag)) lines.push([tag, `${tag} 지속 효과 포함`]);
+        else if (['1턴','2턴','3턴'].includes(tag)) lines.push([tag, `${tag} 지속 효과 포함`]);
       }
-      // dedupe by text
-      const out = [];
-      const seen = new Set();
-      for (const item of lines){
-        const key = item.join('|');
-        if (!seen.has(key)){ seen.add(key); out.push(item); }
-      }
-      return out;
+      return dedupeLinePairs(lines);
     }
+
+    function makeChip(tag, activeSet, onToggle){
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (activeSet.has(tag) ? ' active' : '');
+      btn.textContent = tag;
+      btn.onclick = () => onToggle(tag);
+      return btn;
+    }
+
     function buildTagAreas(){
+      const rarityTags = rarityOrder.filter(r => state.cards.some(c => c.rarity === r));
       const leaderTags = tagSort(uniq(state.cards.flatMap(c => c.leader_tags || [])), leaderPreferredOrder);
       const activeTags = tagSort(uniq(state.cards.flatMap(c => c.active_tags || [])), activePreferredOrder);
+
+      rarityContainer.innerHTML = '';
       leaderContainer.innerHTML = '';
       activeContainer.innerHTML = '';
-      for (const tag of leaderTags){
-        const btn = document.createElement('button');
-        btn.className = 'chip' + (state.selectedLeaderTags.has(tag) ? ' active' : '');
-        btn.textContent = tag;
-        btn.onclick = () => {
-          state.selectedLeaderTags.has(tag) ? state.selectedLeaderTags.delete(tag) : state.selectedLeaderTags.add(tag);
+
+      for (const tag of rarityTags){
+        rarityContainer.appendChild(makeChip(tag, state.selectedRarityTags, (t) => {
+          state.selectedRarityTags.has(t) ? state.selectedRarityTags.delete(t) : state.selectedRarityTags.add(t);
           buildTagAreas(); render();
-        };
-        leaderContainer.appendChild(btn);
+        }));
+      }
+      for (const tag of leaderTags){
+        leaderContainer.appendChild(makeChip(tag, state.selectedLeaderTags, (t) => {
+          state.selectedLeaderTags.has(t) ? state.selectedLeaderTags.delete(t) : state.selectedLeaderTags.add(t);
+          buildTagAreas(); render();
+        }));
       }
       for (const tag of activeTags){
-        const btn = document.createElement('button');
-        btn.className = 'chip' + (state.selectedActiveTags.has(tag) ? ' active' : '');
-        btn.textContent = tag;
-        btn.onclick = () => {
-          state.selectedActiveTags.has(tag) ? state.selectedActiveTags.delete(tag) : state.selectedActiveTags.add(tag);
+        activeContainer.appendChild(makeChip(tag, state.selectedActiveTags, (t) => {
+          state.selectedActiveTags.has(t) ? state.selectedActiveTags.delete(t) : state.selectedActiveTags.add(t);
           buildTagAreas(); render();
-        };
-        activeContainer.appendChild(btn);
+        }));
       }
     }
+
     function buildSelectOptions(){
       const groups = uniq(state.cards.map(c => c.display_group).filter(Boolean)).sort((a,b)=>a.localeCompare(b,'ko'));
       const attrs = uniq(state.cards.map(c => c.display_attribute).filter(Boolean)).sort((a,b)=>a.localeCompare(b,'ko'));
-      const rarities = rarityOrder.filter(r => state.cards.some(c => c.rarity === r));
       for (const g of groups){
-        const opt = document.createElement('option'); opt.value = g; opt.textContent = g; groupSelect.appendChild(opt);
+        const opt = document.createElement('option');
+        opt.value = g;
+        opt.textContent = g;
+        groupSelect.appendChild(opt);
       }
       for (const a of attrs){
-        const opt = document.createElement('option'); opt.value = a; opt.textContent = a; attributeSelect.appendChild(opt);
-      }
-      for (const r of rarities){
-        const opt = document.createElement('option'); opt.value = r; opt.textContent = r; raritySelect.appendChild(opt);
+        const opt = document.createElement('option');
+        opt.value = a;
+        opt.textContent = a;
+        attributeSelect.appendChild(opt);
       }
     }
-    function includesAllTags(cardTags, selectedSet){
+
+    function matchesAnyTag(cardTags, selectedSet){
       if (!selectedSet.size) return true;
       const list = Array.isArray(cardTags) ? cardTags : [];
-      for (const t of selectedSet) if (!list.includes(t)) return false;
-      return true;
+      return [...selectedSet].some(tag => list.includes(tag));
     }
+
+    function matchesRarity(card){
+      if (!state.selectedRarityTags.size) return true;
+      return state.selectedRarityTags.has(card.rarity);
+    }
+
     function matchesSearch(card, search){
       if (!search) return true;
       const leaderLines = leaderSummaryLines(card).map(x=>x[1]).join(' ');
@@ -282,22 +318,25 @@
       ].join(' ').toLowerCase();
       return hay.includes(search.toLowerCase());
     }
+
     function sortCards(cards){
       if (state.sort === 'name') return cards.sort((a,b)=>String(a.display_title).localeCompare(String(b.display_title),'ko'));
       return cards.sort((a,b)=>Number(a.id || 0) - Number(b.id || 0));
     }
+
     function filterCards(){
       const filtered = state.cards.filter(card => {
         if (state.group && card.display_group !== state.group) return false;
         if (state.attribute && card.display_attribute !== state.attribute) return false;
-        if (state.rarity && card.rarity !== state.rarity) return false;
-        if (!includesAllTags(card.leader_tags, state.selectedLeaderTags)) return false;
-        if (!includesAllTags(card.active_tags, state.selectedActiveTags)) return false;
+        if (!matchesRarity(card)) return false;
+        if (!matchesAnyTag(card.leader_tags, state.selectedLeaderTags)) return false;
+        if (!matchesAnyTag(card.active_tags, state.selectedActiveTags)) return false;
         if (!matchesSearch(card, state.search)) return false;
         return true;
       });
       return sortCards(filtered);
     }
+
     function renderSkillBox(label, lines, rawText){
       const content = lines.length
         ? lines.map(([tag, line]) => `<div class="summary-line"><span class="summary-tag">${escapeHtml(tag)}</span>${escapeHtml(line)}</div>`).join('')
@@ -307,13 +346,16 @@
         : '';
       return `<div class="skill-box"><div class="skill-label">${escapeHtml(label)}</div>${content}${raw}</div>`;
     }
+
     function render(){
       const filtered = filterCards();
       resultCount.textContent = `표시 카드 수: ${filtered.length.toLocaleString()} / 전체 ${state.cards.length.toLocaleString()}`;
+
       if (!filtered.length){
         cardGrid.innerHTML = `<div class="empty">조건에 맞는 카드가 없습니다.</div>`;
         return;
       }
+
       cardGrid.innerHTML = filtered.map(card => {
         const thumbHtml = card.thumb_url
           ? `<img class="thumb" src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.display_title)}" loading="lazy" referrerpolicy="no-referrer" />`
@@ -327,6 +369,7 @@
           card.display_attribute ? `<span class="badge">${escapeHtml(card.display_attribute)}</span>` : ''
         ].join('');
         const subtitle = [card.id ? `ID ${escapeHtml(card.id)}` : '', card.display_subname ? escapeHtml(card.display_subname) : ''].filter(Boolean).join(' · ');
+
         return `
           <article class="card">
             <div class="card-top">
@@ -345,11 +388,11 @@
           </article>`;
       }).join('');
     }
+
     async function loadCards(){
-      loadState.textContent = 'cards_enriched.json / cards.json 탐색 중...';
+      loadState.textContent = 'cards.json 불러오는 중...';
       try{
-        let res = await fetch('./cards_enriched.json', {cache:'no-store'});
-        if (!res.ok) res = await fetch('./cards.json', {cache:'no-store'});
+        const res = await fetch('./cards.json', {cache:'no-store'});
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const raw = await res.json();
         state.cards = normalizeCards(raw);
@@ -361,9 +404,8 @@
         console.error(err);
         loadState.textContent = '로드 실패';
         cardGrid.innerHTML = `<div class="empty">
-          cards_enriched.json 또는 cards.json을 읽지 못했습니다.<br><br>
-          PowerShell에서 <code>py -m http.server 8000</code> 실행 후<br>
-          브라우저에서 <code>http://localhost:8000</code> 로 접속해 주세요.
+          cards.json을 읽지 못했습니다.<br><br>
+          GitHub Pages 또는 로컬 서버에서 같은 폴더에 cards.json이 있는지 확인해 주세요.
         </div>`;
       }
     }
@@ -371,16 +413,17 @@
     searchInput.addEventListener('input', e => { state.search = e.target.value.trim(); render(); });
     groupSelect.addEventListener('change', e => { state.group = e.target.value; render(); });
     attributeSelect.addEventListener('change', e => { state.attribute = e.target.value; render(); });
-    raritySelect.addEventListener('change', e => { state.rarity = e.target.value; render(); });
     sortSelect.addEventListener('change', e => { state.sort = e.target.value; render(); });
 
     document.getElementById('clearLeader').onclick = () => { state.selectedLeaderTags.clear(); buildTagAreas(); render(); };
     document.getElementById('clearActive').onclick = () => { state.selectedActiveTags.clear(); buildTagAreas(); render(); };
+    document.getElementById('clearRarity').onclick = () => { state.selectedRarityTags.clear(); buildTagAreas(); render(); };
     document.getElementById('clearAll').onclick = () => {
       state.selectedLeaderTags.clear();
       state.selectedActiveTags.clear();
-      state.search=''; state.group=''; state.attribute=''; state.rarity=''; state.sort='id';
-      searchInput.value=''; groupSelect.value=''; attributeSelect.value=''; raritySelect.value=''; sortSelect.value='id';
+      state.selectedRarityTags.clear();
+      state.search=''; state.group=''; state.attribute=''; state.sort='id';
+      searchInput.value=''; groupSelect.value=''; attributeSelect.value=''; sortSelect.value='id';
       buildTagAreas(); render();
     };
 
