@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BSD Mayoi Filter Better Parsing</title>
+  <title>BSD Mayoi Filter Conservative</title>
   <style>
     :root{
       --bg:#0f1115; --panel:#171a21; --line:#2b3340; --text:#e8ecf3; --muted:#aeb7c6;
@@ -63,9 +63,8 @@
   <div class="wrap">
     <h1>문호 스트레이독스 미궁괴담 카드 필터</h1>
     <div class="desc">
-      <strong>cards.json</strong> 기준으로 동작합니다.
-      속성 공증 태그는 카드 속성이 아니라 <strong>스킬 원문 안에서 실제 공격력 증가 대상 속성</strong>을 다시 파싱해서 계산합니다.
-      2속성 이상 공증은 각 속성 태그를 모두 붙입니다. 액티브의 <strong>단일공격 / 전체공격</strong>도 별도로 다시 판정합니다.
+      <strong>보수적 태그 판정 버전</strong>입니다. 카드 속성/소속으로 공증을 추론하지 않고,
+      각 스킬 본문만 보고 태그를 계산합니다. 애매하면 태그를 안 붙이는 쪽으로 처리합니다.
     </div>
 
     <div class="topbar">
@@ -97,7 +96,7 @@
         <button id="clearRarity">등급 태그 초기화</button>
         <button id="clearAll">전체 필터 초기화</button>
       </div>
-      <div class="note">단일공격 / 전체공격 태그는 원문 표현을 더 넓게 검사해서 다시 계산합니다.</div>
+      <div class="note">단일공격은 전체공격 문구가 없고 배수 공격으로 보이면 우선 단일공격으로 분류합니다.</div>
     </div>
 
     <div class="summary">
@@ -172,26 +171,35 @@
       return /^\d+$/.test(s) ? s.padStart(4, '0') : s;
     }
 
-    function textHasAttackUpMeaning(text){
+    function splitSentences(text){
+      return String(text || '')
+        .split(/(?<=[.!?])\s+|\n+|・|\/|；|;/)
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+    function hasAttackUpMeaning(text){
       const t = String(text || '');
       return /(ATK|attack power|attack|攻撃力|공격력)/i.test(t) && /(up|increase|increases|boost|アップ|증가)/i.test(t);
     }
-    function textHasTeamAllMeaning(text){
+    function hasTeamAllMeaning(text){
       return /(all team|all members|team members|all allies|チーム全員)/i.test(String(text || ''));
     }
-    function textHasSingleTargetMeaning(text){
+    function hasSingleTargetMeaning(text){
       const t = String(text || '');
       return /(single enemy|one enemy|enemy only|to 1 enemy|to one enemy|one foe|single foe|one opponent|敵単体|敵1体|敵一体)/i.test(t);
     }
-    function textHasAllTargetMeaning(text){
+    function hasAllTargetMeaning(text){
       const t = String(text || '');
       return /(all enemies|enemy team|to all enemies|all foes|all opponents|敵全体)/i.test(t);
     }
-    function textHasDamageMeaning(text){
-      return /(damage|damages|attack|攻撃|ダメージ)/i.test(String(text || ''));
+    function hasDamageMeaning(text){
+      return /(damage|damages|攻撃|ダメージ)/i.test(String(text || '')) || /(ATK|attack power|攻撃力|공격력)\s*[x×]\s*[0-9.]+/i.test(String(text || ''));
+    }
+    function hasOrbChangeMeaning(text){
+      return /(Affinity Orbs?|orbs?|marbles?|玉|珠|変換|change|changed|convert|transforms?)/i.test(String(text || ''));
     }
 
-    function getAttrMentions(text){
+    function attrTagsInText(text){
       const t = String(text || '');
       const out = [];
       if (/Crimson|紅属性|Red/i.test(t)) out.push('홍속공증');
@@ -203,47 +211,13 @@
     }
 
     function extractAttackUpAttrTags(text){
-      const t = String(text || '');
-      if (!textHasAttackUpMeaning(t)) return [];
-      // 공증 문맥이 없는 속성구슬 변환, 속성변환류 오탐 방지
-      if (/(Affinity Orbs?|orbs?|marbles?|玉|珠|変換|change|changed|convert|transforms?)/i.test(t) && !/(ATK|attack power|attack|攻撃力|공격력)/i.test(t)) {
-        return [];
-      }
-
+      const lines = splitSentences(text);
       const tags = [];
-
-      // 속성명 + 공격력증가가 같이 있는 흔한 패턴
-      const patterns = [
-        /(Crimson|紅属性|Red)[^.!?;\n]{0,50}(ATK|attack power|attack|攻撃力|공격力)[^.!?;\n]{0,25}(up|increase|increases|boost|アップ|증가)/i,
-        /(Azure|蒼属性|青属性|Blue)[^.!?;\n]{0,50}(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,25}(up|increase|increases|boost|アップ|증가)/i,
-        /(Emerald|翠属性|緑属性|Green)[^.!?;\n]{0,50}(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,25}(up|increase|increases|boost|アップ|증가)/i,
-        /(Light|光属性)[^.!?;\n]{0,50}(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,25}(up|increase|increases|boost|アップ|증가)/i,
-        /(Dark|闇属性|暗属性)[^.!?;\n]{0,50}(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,25}(up|increase|increases|boost|アップ|증가)/i,
-        /(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,50}(up|increase|increases|boost|アップ|증가)[^.!?;\n]{0,35}(Crimson|紅属性|Red)/i,
-        /(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,50}(up|increase|increases|boost|アップ|증가)[^.!?;\n]{0,35}(Azure|蒼属性|青属性|Blue)/i,
-        /(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,50}(up|increase|increases|boost|アップ|증가)[^.!?;\n]{0,35}(Emerald|翠属性|緑属性|Green)/i,
-        /(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,50}(up|increase|increases|boost|アップ|증가)[^.!?;\n]{0,35}(Light|光属性)/i,
-        /(ATK|attack power|attack|攻撃力|공격력)[^.!?;\n]{0,50}(up|increase|increases|boost|アップ|증가)[^.!?;\n]{0,35}(Dark|闇属性|暗属性)/i
-      ];
-
-      const patternToTag = [
-        '홍속공증','청속공증','녹속공증','광속공증','암속공증',
-        '홍속공증','청속공증','녹속공증','광속공증','암속공증'
-      ];
-
-      patterns.forEach((re, idx) => {
-        if (re.test(t)) tags.push(patternToTag[idx]);
-      });
-
-      // 속성 여러 개 나열 + 공증 한 번 표기된 경우 보강
-      if (!tags.length && textHasAttackUpMeaning(t)) {
-        const mentions = getAttrMentions(t);
-        // 단순 속성변환 문장 오탐 방지
-        if (mentions.length && !/(Affinity Orbs?|orbs?|marbles?|玉|珠|変換|change|changed|convert|transforms?)/i.test(t)) {
-          tags.push(...mentions);
-        }
+      for (const line of lines){
+        if (!hasAttackUpMeaning(line)) continue;
+        if (hasOrbChangeMeaning(line) && !/(ATK|attack power|attack|攻撃力|공격력)/i.test(line)) continue;
+        tags.push(...attrTagsInText(line));
       }
-
       return uniq(tags);
     }
 
@@ -264,21 +238,27 @@
     }
 
     function computeLeaderTags(card){
-      const t = [card.leader_skill_title || '', card.leader_skill_text || ''].join(' ');
+      const t = String(card.leader_skill_text || '');
       const tags = [];
-      if (textHasTeamAllMeaning(t) && textHasAttackUpMeaning(t)) tags.push('전체공증');
-      if (/(Armed Detective Agency|武装探偵社)/i.test(t) && textHasAttackUpMeaning(t)) tags.push('무장탐정사공증');
-      if (/(Port Mafia|ポートマフィア)/i.test(t) && textHasAttackUpMeaning(t)) tags.push('포트마피아공증');
+      if (hasTeamAllMeaning(t) && hasAttackUpMeaning(t)) tags.push('전체공증');
+      if (/(Armed Detective Agency|武装探偵社)/i.test(t) && hasAttackUpMeaning(t)) tags.push('무장탐정사공증');
+      if (/(Port Mafia|ポートマフィア)/i.test(t) && hasAttackUpMeaning(t)) tags.push('포트마피아공증');
       tags.push(...extractAttackUpAttrTags(t));
       return uniq(tags);
     }
 
     function computeActiveTags(card){
-      const t = [card.active_skill_title || '', card.active_skill_text || ''].join(' ');
+      const t = String(card.active_skill_text || '');
       const tags = [];
-      if (textHasSingleTargetMeaning(t) && textHasDamageMeaning(t)) tags.push('단일공격');
-      if (textHasAllTargetMeaning(t) && textHasDamageMeaning(t)) tags.push('전체공격');
-      if (textHasTeamAllMeaning(t) && textHasAttackUpMeaning(t)) tags.push('전체공증');
+      const hasMul = !!detectMultiplier(t);
+
+      if (hasAllTargetMeaning(t) && hasDamageMeaning(t)) {
+        tags.push('전체공격');
+      } else if ((hasSingleTargetMeaning(t) && hasDamageMeaning(t)) || (hasMul && !hasAllTargetMeaning(t))) {
+        tags.push('단일공격');
+      }
+
+      if (hasTeamAllMeaning(t) && hasAttackUpMeaning(t)) tags.push('전체공증');
       tags.push(...extractAttackUpAttrTags(t));
       return uniq(tags);
     }
@@ -319,7 +299,7 @@
     function leaderSummaryLines(card){
       const tags = card.leader_tags_calc || [];
       const chosen = state.selectedLeaderTags.size ? tags.filter(t => state.selectedLeaderTags.has(t)) : tags;
-      const text = [card.leader_skill_title || '', card.leader_skill_text || ''].join(' ');
+      const text = String(card.leader_skill_text || '');
       const pct = detectPercent(text);
       const lines = [];
       for (const tag of chosen){
@@ -334,7 +314,7 @@
     function activeSummaryLines(card){
       const tags = card.active_tags_calc || [];
       const chosen = state.selectedActiveTags.size ? tags.filter(t => state.selectedActiveTags.has(t)) : tags;
-      const text = [card.active_skill_title || '', card.active_skill_text || ''].join(' ');
+      const text = String(card.active_skill_text || '');
       const pct = detectPercent(text);
       const turns = detectTurns(text);
       const mul = detectMultiplier(text);
