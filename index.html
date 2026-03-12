@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BSD Mayoi Filter Fixed</title>
+  <title>BSD Mayoi Filter Strict Tags</title>
   <style>
     :root{
       --bg:#0f1115; --panel:#171a21; --line:#2b3340; --text:#e8ecf3; --muted:#aeb7c6;
@@ -23,9 +23,7 @@
     .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
     .section-title{font-size:14px;color:var(--muted);margin-bottom:10px}
     .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{
-      border:1px solid var(--line);background:var(--chip);color:var(--text);padding:8px 11px;border-radius:999px;cursor:pointer
-    }
+    .chip{border:1px solid var(--line);background:var(--chip);color:var(--text);padding:8px 11px;border-radius:999px;cursor:pointer}
     .chip.active{background:var(--chip-on);border-color:#5f8fff}
     .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     button{border:1px solid var(--line);background:#1e232d;color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer}
@@ -43,7 +41,7 @@
     .skill-box{background:var(--box);border:1px solid var(--line);border-radius:12px;padding:10px}
     .skill-label{font-size:12px;color:var(--accent);margin-bottom:8px;font-weight:700}
     .summary-line{font-size:13px;line-height:1.6;padding:6px 8px;border-radius:10px;background:#1b2330;margin-top:6px}
-    .summary-tag{display:inline-block;min-width:70px;margin-right:8px;color:#9dc0ff;font-weight:700}
+    .summary-tag{display:inline-block;min-width:78px;margin-right:8px;color:#9dc0ff;font-weight:700}
     .raw{margin-top:8px}
     .raw summary{cursor:pointer;color:var(--muted);font-size:12px}
     .raw pre{
@@ -65,8 +63,9 @@
   <div class="wrap">
     <h1>문호 스트레이독스 미궁괴담 카드 필터</h1>
     <div class="desc">
-      <strong>cards.json</strong> 기준으로 동작하며, 필터용 태그는 원문 스킬 텍스트에서 다시 계산합니다.
-      리더/액티브/등급 태그는 모두 OR 방식입니다. 턴수 태그는 제거했습니다.
+      <strong>cards.json</strong> 기준으로 동작하며, 태그는 원문 스킬 텍스트를 다시 분석해서 계산합니다.
+      속성 이름만 들어간 문구는 공증으로 처리하지 않고, <strong>실제 공격력 증가 문구</strong>가 있을 때만 속성 공증으로 잡습니다.
+      리더/액티브/등급 태그는 모두 OR 방식입니다.
     </div>
 
     <div class="topbar">
@@ -98,9 +97,7 @@
         <button id="clearRarity">등급 태그 초기화</button>
         <button id="clearAll">전체 필터 초기화</button>
       </div>
-      <div class="note">
-        영역 안에서는 OR 방식입니다. 예: 액티브에서 개인공격 + 전체공격을 같이 고르면 둘 중 하나만 맞아도 표시됩니다.
-      </div>
+      <div class="note">단일 대상 공격은 <strong>단일공격</strong>, 적 전체 대상은 <strong>전체공격</strong>으로 분리합니다.</div>
     </div>
 
     <div class="summary">
@@ -124,7 +121,7 @@
     };
 
     const leaderPreferredOrder = ['전체공증','무장탐정사공증','포트마피아공증','홍속공증','청속공증','녹속공증','광속공증','암속공증'];
-    const activePreferredOrder = ['개인공격','전체공격','전체공증','홍속공증','청속공증','녹속공증','광속공증','암속공증'];
+    const activePreferredOrder = ['단일공격','전체공격','전체공증','홍속공증','청속공증','녹속공증','광속공증','암속공증'];
     const rarityOrder = ['R','SR','SSR','UR','EX'];
 
     const rarityContainer = document.getElementById('rarityTags');
@@ -175,8 +172,25 @@
       return /^\d+$/.test(s) ? s.padStart(4, '0') : s;
     }
 
-    function detectAttrFromText(text){
+    function textHasAttackUpMeaning(text){
       const t = String(text || '');
+      return /(ATK|attack power|attack|攻撃力|공격력)/i.test(t) && /(up|increase|increases|boost|アップ|증가)/i.test(t);
+    }
+    function textHasTeamAllMeaning(text){
+      return /(all team|all members|team members|all allies|チーム全員)/i.test(String(text || ''));
+    }
+    function textHasSingleTargetMeaning(text){
+      return /(single enemy|one enemy|enemy only|to 1 enemy|to one enemy|敵単体)/i.test(String(text || ''));
+    }
+    function textHasAllTargetMeaning(text){
+      return /(all enemies|enemy team|to all enemies|敵全体)/i.test(String(text || ''));
+    }
+    function textHasDamageMeaning(text){
+      return /(damage|damages|attack|攻撃|ダメージ)/i.test(String(text || ''));
+    }
+    function detectAttrAttackTag(text){
+      const t = String(text || '');
+      if (!textHasAttackUpMeaning(t)) return '';
       if (/Emerald|翠属性|緑属性|Green/i.test(t)) return '녹속공증';
       if (/Azure|蒼属性|青属性|Blue/i.test(t)) return '청속공증';
       if (/Crimson|紅属性|Red/i.test(t)) return '홍속공증';
@@ -203,10 +217,10 @@
     function computeLeaderTags(card){
       const t = String(card.leader_skill_text || '');
       const tags = [];
-      if (/(all team|all members|team members|all allies|チーム全員)/i.test(t) && /(ATK|attack|攻撃力)/i.test(t)) tags.push('전체공증');
-      if (/(Armed Detective Agency|武装探偵社)/i.test(t) && /(ATK|attack|攻撃力)/i.test(t)) tags.push('무장탐정사공증');
-      if (/(Port Mafia|ポートマフィア)/i.test(t) && /(ATK|attack|攻撃力)/i.test(t)) tags.push('포트마피아공증');
-      const attrTag = detectAttrFromText(t);
+      if (textHasTeamAllMeaning(t) && textHasAttackUpMeaning(t)) tags.push('전체공증');
+      if (/(Armed Detective Agency|武装探偵社)/i.test(t) && textHasAttackUpMeaning(t)) tags.push('무장탐정사공증');
+      if (/(Port Mafia|ポートマフィア)/i.test(t) && textHasAttackUpMeaning(t)) tags.push('포트마피아공증');
+      const attrTag = detectAttrAttackTag(t);
       if (attrTag) tags.push(attrTag);
       return uniq(tags);
     }
@@ -214,10 +228,10 @@
     function computeActiveTags(card){
       const t = String(card.active_skill_text || '');
       const tags = [];
-      if (/(single enemy|one enemy|enemy only|敵単体)/i.test(t) && /(damage|attack|攻撃)/i.test(t)) tags.push('개인공격');
-      if (/(all enemies|enemy team|敵全体)/i.test(t) && /(damage|attack|攻撃)/i.test(t)) tags.push('전체공격');
-      if (/(all team|all members|team members|チーム全員)/i.test(t) && /(ATK|attack|攻撃力)/i.test(t)) tags.push('전체공증');
-      const attrTag = detectAttrFromText(t);
+      if (textHasSingleTargetMeaning(t) && textHasDamageMeaning(t)) tags.push('단일공격');
+      if (textHasAllTargetMeaning(t) && textHasDamageMeaning(t)) tags.push('전체공격');
+      if (textHasTeamAllMeaning(t) && textHasAttackUpMeaning(t)) tags.push('전체공증');
+      const attrTag = detectAttrAttackTag(t);
       if (attrTag) tags.push(attrTag);
       return uniq(tags);
     }
@@ -279,7 +293,7 @@
       const mul = detectMultiplier(text);
       const lines = [];
       for (const tag of chosen){
-        if (tag === '개인공격') lines.push([tag, `적 1명에게 공격력 ${mul || '?'}배 대미지`]);
+        if (tag === '단일공격') lines.push([tag, `적 1명에게 공격력 ${mul || '?'}배 대미지`]);
         else if (tag === '전체공격') lines.push([tag, `적 전체에게 공격력 ${mul || '?'}배 대미지`]);
         else if (tag === '전체공증') lines.push([tag, `팀 전체 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
         else if (tag.endsWith('속공증')) lines.push([tag, `${tag.replace('공증','')} 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
