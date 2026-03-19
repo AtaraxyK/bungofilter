@@ -618,11 +618,12 @@
     }
 
     function getDisplayName(card) {
-      if (card.name_jp) return card.name_jp;
-      if (card.character_name_jp) return card.character_name_jp;
-      if (card.character_name_en) return card.character_name_en;
-      return card.id || 'Unknown';
-    }
+  if (card.display_name_jp) return card.display_name_jp;
+  if (card.name_jp) return card.name_jp;
+  if (card.character_name_jp) return card.character_name_jp;
+  if (card.character_name_en) return card.character_name_en;
+  return card.id || 'Unknown';
+}
 
     function normalizeCard(card) {
       const leaderLive = inferLeaderTagsFromText(card.leader_skill_raw || '');
