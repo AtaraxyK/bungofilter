@@ -1,330 +1,239 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>문호 스트레이독스 미궁괴담 카드 필터</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>문호 미궁괴담 카드 필터</title>
   <style>
     :root {
-      --bg: #0f1115;
-      --panel: #171a21;
-      --panel-2: #1e2330;
-      --border: #2b3244;
-      --text: #eef2ff;
-      --muted: #a7b0c3;
-      --accent: #7aa2ff;
-      --accent-2: #9f7aea;
-      --chip: #252c3a;
-      --chip-on: #3d5fb8;
-      --danger: #ff6b6b;
-      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --line: #374151;
+      --accent: #60a5fa;
+      --accent-2: #93c5fd;
+      --chip: #0b1220;
+      --chip-on: #1d4ed8;
+      --danger: #ef4444;
     }
 
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Inter, Pretendard, "Noto Sans KR", system-ui, sans-serif; }
-    body { min-height: 100vh; }
-
-    .page {
-      max-width: 1480px;
-      margin: 0 auto;
-      padding: 28px 18px 56px;
-    }
-
-    .hero {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    .hero h1 {
+    body {
       margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0b1020 0%, var(--bg) 100%);
+      color: var(--text);
     }
 
-    .hero p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
+    .wrap {
+      width: min(1400px, calc(100% - 24px));
+      margin: 24px auto 40px;
     }
 
-    .hero .summary {
-      text-align: right;
+    .topbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .sub {
       color: var(--muted);
       font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .panel {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+      backdrop-filter: blur(8px);
     }
 
     .toolbar {
       display: grid;
-      grid-template-columns: 1.15fr .9fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .search-panel,
-    .filter-panel {
-      padding: 16px;
-    }
-
-    .search-grid {
-      display: grid;
-      grid-template-columns: 1fr 180px 180px;
+      grid-template-columns: 1.2fr 180px 150px 120px;
       gap: 10px;
+      margin-bottom: 16px;
     }
 
-    input[type="search"],
-    select,
-    input[type="text"] {
+    input[type="search"], select, button {
       width: 100%;
-      height: 46px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #11151d;
+      border: 1px solid var(--line);
+      background: #0b1220;
       color: var(--text);
-      padding: 0 14px;
-      outline: none;
-      font-size: 14px;
-    }
-
-    input[type="search"]:focus,
-    select:focus,
-    input[type="text"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(122,162,255,.15);
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font: inherit;
     }
 
     button {
-      height: 42px;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 0 14px;
       cursor: pointer;
-      font-weight: 700;
-      transition: .18s ease;
+      background: #162033;
     }
 
-    button:hover { transform: translateY(-1px); }
-    .primary-btn {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border: none;
-      color: white;
-    }
+    button:hover { border-color: var(--accent); }
 
-    .filters {
+    .filter-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 12px;
     }
 
     .filter-group {
-      padding: 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(11, 18, 32, 0.75);
     }
 
     .filter-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .filter-title h3 {
-      margin: 0;
       font-size: 14px;
-      color: #f6f8ff;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--accent-2);
     }
 
-    .filter-title span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .chip-wrap {
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
     .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 34px;
-      padding: 0 12px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      border: 1px solid var(--border);
       background: var(--chip);
-      color: #dbe4ff;
+      color: var(--text);
+      padding: 7px 10px;
       font-size: 13px;
       cursor: pointer;
       user-select: none;
-      transition: .16s ease;
     }
 
-    .chip:hover { border-color: var(--accent); }
-    .chip.on {
+    .chip.active {
       background: var(--chip-on);
-      border-color: transparent;
-      color: white;
+      border-color: var(--accent-2);
     }
 
-    .status-bar {
+    .summary {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin: 16px 0 14px;
+      gap: 10px;
       flex-wrap: wrap;
+      margin: 16px 0 14px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .status-left { color: var(--muted); font-size: 14px; }
-    .status-right { display: flex; gap: 10px; align-items: center; }
-
-    .grid {
+    .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
     }
 
     .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       min-height: 100%;
     }
 
-    .card-top {
+    .card-main {
       display: grid;
-      grid-template-columns: 92px 1fr;
+      grid-template-columns: 96px 1fr;
       gap: 14px;
       padding: 14px;
-      border-bottom: 1px solid rgba(255,255,255,.05);
     }
 
-    .thumb-wrap {
-      width: 92px;
-      height: 92px;
-      border-radius: 14px;
-      background: linear-gradient(145deg, #202636, #131722);
-      border: 1px solid rgba(255,255,255,.06);
+    .thumb {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: #0b1220;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
-    .thumb-wrap img {
+    .thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .thumb-fallback {
+    .thumb-empty {
       color: var(--muted);
       font-size: 12px;
       text-align: center;
       padding: 8px;
-      line-height: 1.4;
     }
 
-    .card-no {
-      color: var(--accent);
+    .name {
       font-weight: 800;
-      font-size: 13px;
-      margin-bottom: 6px;
-    }
-
-    .card-name {
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1.28;
+      font-size: 17px;
+      line-height: 1.3;
       margin-bottom: 8px;
     }
 
-    .meta-line {
+    .meta {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 26px;
-      padding: 0 9px;
+    .badge {
       font-size: 12px;
-      color: #dfe6ff;
+      padding: 5px 8px;
       border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .card-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      border: 1px solid var(--line);
+      background: #0b1220;
+      color: var(--text);
     }
 
     .skill-box {
-      padding: 12px;
-      background: rgba(255,255,255,.025);
-      border: 1px solid rgba(255,255,255,.05);
-      border-radius: 14px;
+      border-top: 1px solid var(--line);
+      padding: 12px 14px;
     }
 
-    .skill-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
+    .skill-title {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--accent-2);
       font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .skill-name {
+      font-weight: 700;
+      margin-bottom: 4px;
       font-size: 14px;
-      font-weight: 800;
-      line-height: 1.35;
-      margin-bottom: 6px;
-      color: #f7f9ff;
     }
 
     .skill-text {
+      color: var(--text);
       font-size: 13px;
-      color: #ced5e8;
-      line-height: 1.55;
-      word-break: keep-all;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
 
     .tag-row {
@@ -335,137 +244,97 @@
     }
 
     .tag {
-      display: inline-flex;
-      min-height: 26px;
-      padding: 0 9px;
-      align-items: center;
-      font-size: 12px;
       border-radius: 999px;
-      background: rgba(122,162,255,.12);
-      color: #d6e4ff;
-      border: 1px solid rgba(122,162,255,.18);
+      background: #172033;
+      border: 1px solid #30425f;
+      color: #dbeafe;
+      padding: 4px 8px;
+      font-size: 12px;
     }
 
     .links {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 2px;
+      padding: 0 14px 14px;
+      margin-top: auto;
     }
 
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 0 12px;
-      border-radius: 999px;
+    .links a {
       text-decoration: none;
-      color: white;
-      font-size: 12px;
-      font-weight: 700;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.08);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 13px;
+      background: #0b1220;
     }
 
-    .empty {
-      padding: 42px 18px;
+    .links a:hover { border-color: var(--accent); }
+
+    .status {
+      padding: 16px;
       text-align: center;
       color: var(--muted);
-      border: 1px dashed var(--border);
-      border-radius: 18px;
-      background: rgba(255,255,255,.015);
     }
 
-    .source-box {
-      margin-top: 14px;
-      padding: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
+    .status.error { color: #fecaca; }
+
+    @media (max-width: 980px) {
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .filter-grid { grid-template-columns: 1fr; }
     }
 
-    .source-box code {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.06);
-      color: #dfe7ff;
-    }
-
-    @media (max-width: 1180px) {
+    @media (max-width: 640px) {
       .toolbar { grid-template-columns: 1fr; }
-      .filters { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 760px) {
-      .search-grid { grid-template-columns: 1fr; }
-      .hero { flex-direction: column; align-items: flex-start; }
-      .hero .summary { text-align: left; }
-      .card-top { grid-template-columns: 76px 1fr; }
-      .thumb-wrap { width: 76px; height: 76px; }
+      .card-main { grid-template-columns: 1fr; }
+      .thumb { width: 100%; height: 180px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <section class="hero">
+  <div class="wrap">
+    <div class="topbar">
       <div>
-        <h1>문호 스트레이독스<br>미궁괴담 카드 필터</h1>
-        <p>같은 필터 그룹 안에서는 OR, 서로 다른 그룹끼리는 AND로 동작합니다.</p>
-      </div>
-      <div class="summary" id="summaryTop">데이터 로딩 중...</div>
-    </section>
-
-    <section class="toolbar">
-      <div class="panel search-panel">
-        <div class="search-grid">
-          <input id="searchInput" type="search" placeholder="카드명 / 캐릭터명 / 스킬명 / 스킬 설명 검색" />
-          <select id="sortSelect">
-            <option value="idAsc">번호 오름차순</option>
-            <option value="idDesc">번호 내림차순</option>
-            <option value="nameAsc">이름 오름차순</option>
-            <option value="rarityDesc">등급 높은 순</option>
-          </select>
-          <select id="viewSelect">
-            <option value="all">전체 보기</option>
-            <option value="hasThumb">이미지 있는 카드만</option>
-            <option value="hasLeader">리더 스킬 있는 카드만</option>
-            <option value="hasActive">액티브 스킬 있는 카드만</option>
-          </select>
-        </div>
-        <div class="actions">
-          <button class="primary-btn" id="reloadBtn" type="button">데이터 다시 불러오기</button>
-          <button id="resetBtn" type="button">필터 초기화</button>
-          <button id="collapseBtn" type="button">필터 접기/펼치기</button>
-        </div>
-        <div class="source-box">
-          현재 데이터 소스: <code id="sourceLabel"></code><br>
-          태그는 JSON 값보다 스킬 원문을 우선 기준으로 다시 계산합니다.
-        </div>
-      </div>
-
-      <div class="panel filter-panel" id="filterPanel">
-        <div class="filters" id="filtersRoot"></div>
-      </div>
-    </section>
-
-    <div class="status-bar">
-      <div class="status-left" id="statusText">0건</div>
-      <div class="status-right">
-        <span class="pill" id="selectedCountPill">선택된 필터 0개</span>
+        <h1>문호 스트레이독스 미궁괴담 카드 필터</h1>
+        <div class="sub">시트에서 수정한 태그를 바로 반영하도록 Apps Script JSON URL을 읽는 버전입니다.</div>
       </div>
     </div>
 
-    <section class="grid" id="cardGrid"></section>
+    <div class="panel">
+      <div class="toolbar">
+        <input id="searchInput" type="search" placeholder="카드명 / 스킬명 / 스킬 설명 검색" />
+        <select id="sortSelect">
+          <option value="idAsc">번호 오름차순</option>
+          <option value="idDesc">번호 내림차순</option>
+          <option value="nameAsc">이름 오름차순</option>
+          <option value="rarityDesc">등급 높은순</option>
+        </select>
+        <select id="tagModeSelect">
+          <option value="final">최종 태그 사용</option>
+          <option value="auto">자동 태그 사용</option>
+        </select>
+        <button id="resetBtn" type="button">필터 초기화</button>
+      </div>
+
+      <div class="filter-grid" id="filterGrid"></div>
+
+      <div class="summary">
+        <div id="countText">불러오는 중...</div>
+        <div id="sourceText"></div>
+      </div>
+
+      <div id="statusBox" class="status">데이터를 불러오는 중입니다.</div>
+      <div id="cards" class="cards" hidden></div>
+    </div>
   </div>
 
   <script>
     const CONFIG = {
-      DATA_URL: 'https://raw.githubusercontent.com/AtaraxyK/bungofilter/main/cards_sheet_ready.json',
-      IMAGE_FALLBACK_TEXT: '이미지 없음'
+      // Apps Script 웹앱 URL로 바꿔주세요.
+      DATA_URL: 'https://script.google.com/macros/s/AKfycbxPpuYARh1SiYHabkrreHGtgAougkpiNfugn7m_Fo04TLrx3k_BB5yJWyh9aXx84yjtnQ/exec'
     };
 
-    const FILTER_DEFS = [
+    const FILTERS = [
       { key: 'rarity_group', label: '등급', options: ['R', 'SR', 'SSR', 'UR', 'EX'] },
       { key: 'type', label: '카드 타입', options: ['공격형', '지원형', '밸런스형', '특수형', '방어형'] },
       { key: 'attribute', label: '속성 타입', options: ['적속성', '청속성', '녹속성', '광속성', '암속성'] },
@@ -474,426 +343,295 @@
       { key: 'active', label: '액티브 스킬', options: ['단일 공격', '전체 공격', '전체 공증 버프', '속성별 공증 버프'] }
     ];
 
+    const rarityRank = { EX: 5, UR: 4, SSR: 3, SR: 2, R: 1 };
+
     const state = {
       cards: [],
-      filtered: [],
-      filters: {
+      selected: {
         rarity_group: new Set(),
         type: new Set(),
         attribute: new Set(),
         affiliation: new Set(),
         leader: new Set(),
-        active: new Set()
-      },
-      search: '',
-      sort: 'idAsc',
-      view: 'all',
-      filterCollapsed: false
+        active: new Set(),
+      }
     };
 
-    const $ = (sel) => document.querySelector(sel);
-
-    const ATTR_KEYWORDS = {
-      '적속성': ['紅属性', '赤属性', '紅', '赤', 'Crimson'],
-      '청속성': ['蒼属性', '青属性', '蒼', '青', 'Azure'],
-      '녹속성': ['緑属性', '緑', 'Emerald'],
-      '광속성': ['光属性', '光', 'Light'],
-      '암속성': ['闇属性', '闇', 'Dark']
+    const els = {
+      filterGrid: document.getElementById('filterGrid'),
+      cards: document.getElementById('cards'),
+      statusBox: document.getElementById('statusBox'),
+      countText: document.getElementById('countText'),
+      sourceText: document.getElementById('sourceText'),
+      searchInput: document.getElementById('searchInput'),
+      sortSelect: document.getElementById('sortSelect'),
+      tagModeSelect: document.getElementById('tagModeSelect'),
+      resetBtn: document.getElementById('resetBtn')
     };
 
-    const AFFILIATION_KEYWORDS = {
-      '무장 탐정사': ['武装探偵社', 'Armed Detective Agency'],
-      '포트 마피아': ['ポートマフィア', 'Port Mafia'],
-      '연합': ['組合', 'ギルド', 'Guild', 'The Guild'],
-      '이능특무과': ['異能特務課', 'Supernatural Ability Special Investigation Division'],
-      '미믹': ['ミミック', 'Mimic'],
-      '죽음의 집의 쥐': ['死の家の鼠', 'Rats in the House of the Dead'],
-      '무소속': ['無所属', 'Independent']
-    };
+    init();
 
-    const TYPE_KEYWORDS = {
-      '공격형': ['攻撃型', 'Offensive Types'],
-      '지원형': ['支援型', 'Support Types'],
-      '밸런스형': ['バランス型', 'Balanced Types'],
-      '특수형': ['特殊型', 'Special Types'],
-      '방어형': ['防御型', 'Defensive Types']
-    };
-
-    function escapeHtml(str = '') {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    async function init() {
+      buildFilterUi();
+      bindEvents();
+      await loadCards();
     }
 
-    function splitPipe(text) {
-      if (!text) return [];
-      return [...new Set(String(text).split('|').map(v => v.trim()).filter(Boolean))];
+    function buildFilterUi() {
+      els.filterGrid.innerHTML = '';
+      for (const group of FILTERS) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'filter-group';
+
+        const title = document.createElement('div');
+        title.className = 'filter-title';
+        title.textContent = `${group.label} (같은 그룹은 OR)`;
+
+        const chips = document.createElement('div');
+        chips.className = 'chips';
+
+        for (const option of group.options) {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'chip';
+          chip.textContent = option;
+          chip.dataset.group = group.key;
+          chip.dataset.value = option;
+          chips.appendChild(chip);
+        }
+
+        wrapper.append(title, chips);
+        els.filterGrid.appendChild(wrapper);
+      }
     }
 
-    function unique(values) {
-      return [...new Set((values || []).filter(Boolean))];
+    function bindEvents() {
+      els.filterGrid.addEventListener('click', (e) => {
+        const chip = e.target.closest('.chip');
+        if (!chip) return;
+
+        const group = chip.dataset.group;
+        const value = chip.dataset.value;
+        const set = state.selected[group];
+
+        if (set.has(value)) {
+          set.delete(value);
+          chip.classList.remove('active');
+        } else {
+          set.add(value);
+          chip.classList.add('active');
+        }
+
+        render();
+      });
+
+      els.searchInput.addEventListener('input', render);
+      els.sortSelect.addEventListener('change', render);
+      els.tagModeSelect.addEventListener('change', render);
+      els.resetBtn.addEventListener('click', () => {
+        els.searchInput.value = '';
+        els.sortSelect.value = 'idAsc';
+        els.tagModeSelect.value = 'final';
+        for (const key of Object.keys(state.selected)) {
+          state.selected[key].clear();
+        }
+        document.querySelectorAll('.chip.active').forEach(chip => chip.classList.remove('active'));
+        render();
+      });
     }
 
-    function normalizeSkillText(text = '') {
-      return String(text).replace(/\s+/g, ' ').trim();
+    async function loadCards() {
+      try {
+        showStatus('데이터를 불러오는 중입니다.');
+        const res = await fetch(CONFIG.DATA_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('응답 JSON이 배열이 아닙니다.');
+
+        state.cards = data.map(normalizeCard);
+        els.sourceText.textContent = '데이터 소스: Google Sheets + Apps Script';
+        render();
+      } catch (err) {
+        console.error(err);
+        showStatus(`데이터를 불러오지 못했습니다. ${err.message}`, true);
+      }
     }
 
-    function splitClauses(text = '') {
-      return normalizeSkillText(text)
-        .split(/(?:&|＆|\/|／|、|。|\.|;|；|・|\n)+/)
+    function normalizeCard(card) {
+      const leaderFinal = splitTagField(card.leader_tags_final || card.leader_tags_final_text);
+      const activeFinal = splitTagField(card.active_tags_final || card.active_tags_final_text);
+      const leaderAuto = splitTagField(card.leader_tags_auto || card.leader_tags_auto_text);
+      const activeAuto = splitTagField(card.active_tags_auto || card.active_tags_auto_text);
+
+      return {
+        ...card,
+        idNum: Number(String(card.id || card.no_jp || '0').replace(/\D/g, '')) || 0,
+        display_name_jp: String(card.display_name_jp || card.name_jp || card.character_name_jp || card.character_name_en || card.id || 'Unknown').trim(),
+        leaderTagsFinal: leaderFinal,
+        activeTagsFinal: activeFinal,
+        leaderTagsAuto: leaderAuto,
+        activeTagsAuto: activeAuto,
+      };
+    }
+
+    function splitTagField(value) {
+      if (Array.isArray(value)) return value.map(v => String(v).trim()).filter(Boolean);
+      return String(value || '')
+        .split('|')
         .map(v => v.trim())
         .filter(Boolean);
     }
 
-    function findTargets(text, dict) {
-      const found = [];
-      for (const [label, keywords] of Object.entries(dict)) {
-        if (keywords.some(keyword => text.includes(keyword))) {
-          found.push(label);
+    function getLeaderTags(card) {
+      return els.tagModeSelect.value === 'final' ? card.leaderTagsFinal : card.leaderTagsAuto;
+    }
+
+    function getActiveTags(card) {
+      return els.tagModeSelect.value === 'final' ? card.activeTagsFinal : card.activeTagsAuto;
+    }
+
+    function render() {
+      const keyword = els.searchInput.value.trim().toLowerCase();
+      const filtered = state.cards.filter(card => {
+        const leaderTags = getLeaderTags(card);
+        const activeTags = getActiveTags(card);
+
+        if (keyword) {
+          const haystack = [
+            card.display_name_jp,
+            card.character_name_jp,
+            card.character_name_en,
+            card.title_jp,
+            card.leader_skill_name,
+            card.leader_skill_raw,
+            card.active_skill_name,
+            card.active_skill_raw
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(keyword)) return false;
         }
-      }
-      return found;
-    }
 
-    function hasAttackBuff(text) {
-      return [
-        '攻撃力を', '攻撃力が', '攻撃力アップ', '攻撃力をアップ', '攻撃力上昇',
-        '与ダメージ', 'ダメージアップ', 'ATK', 'Attack', 'attack power', 'ATK UP'
-      ].some(keyword => text.includes(keyword));
-    }
+        if (!matchesOrWithinGroup(card.rarity_group, state.selected.rarity_group)) return false;
+        if (!matchesOrWithinGroup(card.type, state.selected.type)) return false;
+        if (!matchesOrWithinGroup(card.attribute, state.selected.attribute)) return false;
+        if (!matchesOrWithinGroup(card.affiliation, state.selected.affiliation)) return false;
+        if (!matchesTagGroup(leaderTags, state.selected.leader)) return false;
+        if (!matchesTagGroup(activeTags, state.selected.active)) return false;
 
-    function hasTeamAllKeyword(text) {
-      return ['チーム全員', 'チームメンバー', '全員', 'Team members', 'all Team members'].some(keyword => text.includes(keyword));
-    }
-
-    function inferLeaderTagsFromText(rawText = '') {
-      const clauses = splitClauses(rawText);
-      const tags = [];
-
-      for (const clause of clauses) {
-        if (!hasAttackBuff(clause)) continue;
-
-        const attrs = findTargets(clause, ATTR_KEYWORDS);
-        const affs = findTargets(clause, AFFILIATION_KEYWORDS);
-        const types = findTargets(clause, TYPE_KEYWORDS);
-
-        if (affs.length) tags.push('소속별 공증');
-        if (attrs.length) tags.push('속성별 공증');
-        if (types.length) tags.push('타입별 공증');
-
-        if (!affs.length && !attrs.length && !types.length) {
-          if (hasTeamAllKeyword(clause) || clauses.length === 1) {
-            tags.push('팀원 전체 공증');
-          }
-        }
-      }
-
-      return unique(tags);
-    }
-
-    function inferActiveTagsFromText(rawText = '') {
-      const clauses = splitClauses(rawText);
-      const tags = [];
-
-      for (const clause of clauses) {
-        const isDamage = ['ダメージ', '攻撃', 'Deals', 'damage'].some(keyword => clause.includes(keyword));
-        const isSingle = ['敵単体', '単体に', 'to an enemy', '1 enemy'].some(keyword => clause.includes(keyword));
-        const isAll = ['敵全体', '敵全員', '全体に', 'to all enemies', 'all enemies'].some(keyword => clause.includes(keyword));
-        const isAtkBuff = (clause.includes('攻撃力') || clause.includes('ATK')) && ['アップ', '上昇', 'Increase', 'Raises', 'UP'].some(keyword => clause.includes(keyword));
-        const attrs = findTargets(clause, ATTR_KEYWORDS);
-
-        if (isDamage && isSingle) tags.push('단일 공격');
-        if (isDamage && isAll) tags.push('전체 공격');
-
-        if (isAtkBuff) {
-          if (attrs.length) tags.push('속성별 공증 버프');
-          else if (hasTeamAllKeyword(clause)) tags.push('전체 공증 버프');
-        }
-      }
-
-      return unique(tags);
-    }
-
-    function getDisplayName(card) {
-  if (card.display_name_jp) return card.display_name_jp;
-  if (card.name_jp) return card.name_jp;
-  if (card.character_name_jp) return card.character_name_jp;
-  if (card.character_name_en) return card.character_name_en;
-  return card.id || 'Unknown';
-}
-
-    function normalizeCard(card) {
-      const leaderLive = inferLeaderTagsFromText(card.leader_skill_raw || '');
-      const activeLive = inferActiveTagsFromText(card.active_skill_raw || '');
-      const fallbackLeader = splitPipe(card.leader_tags_final_text || card.leader_tags_auto_text || '');
-      const fallbackActive = splitPipe(card.active_tags_final_text || card.active_tags_auto_text || '');
-      const displayName = getDisplayName(card);
-
-      const leaderArr = leaderLive.length ? leaderLive : fallbackLeader;
-      const activeArr = activeLive.length ? activeLive : fallbackActive;
-
-      return {
-        ...card,
-        id: String(card.id || '').padStart(4, '0'),
-        no_jp: String(card.no_jp || card.id || '').padStart(4, '0'),
-        rarity_group: card.rarity_group || '',
-        type: card.type || '',
-        attribute: card.attribute || '',
-        affiliation: card.affiliation || '',
-        name_jp: card.name_jp || '',
-        character_name_jp: card.character_name_jp || '',
-        character_name_en: card.character_name_en || '',
-        title_jp: card.title_jp || '',
-        display_name: displayName,
-        thumb_url: card.thumb_url || '',
-        leader_skill_name: card.leader_skill_name || '',
-        leader_skill_raw: card.leader_skill_raw || '',
-        active_skill_name: card.active_skill_name || '',
-        active_skill_raw: card.active_skill_raw || '',
-        filter_leader: leaderArr,
-        filter_active: activeArr,
-        searchBlob: [
-          card.id,
-          card.no_jp,
-          displayName,
-          card.character_name_jp,
-          card.character_name_en,
-          card.title_jp,
-          card.affiliation,
-          card.attribute,
-          card.type,
-          card.leader_skill_name,
-          card.leader_skill_raw,
-          card.active_skill_name,
-          card.active_skill_raw,
-          leaderArr.join(' '),
-          activeArr.join(' ')
-        ].join(' ').toLowerCase()
-      };
-    }
-
-    function getSelectedCount() {
-      return FILTER_DEFS.reduce((sum, def) => sum + state.filters[def.key].size, 0);
-    }
-
-    function renderFilters() {
-      const root = $('#filtersRoot');
-      root.innerHTML = FILTER_DEFS.map(def => {
-        const chips = def.options.map(opt => {
-          const on = state.filters[def.key].has(opt) ? 'on' : '';
-          return `<button class="chip ${on}" type="button" data-filter-key="${def.key}" data-filter-value="${escapeHtml(opt)}">${escapeHtml(opt)}</button>`;
-        }).join('');
-
-        return `
-          <section class="filter-group">
-            <div class="filter-title">
-              <h3>${escapeHtml(def.label)}</h3>
-              <span>${state.filters[def.key].size}개 선택</span>
-            </div>
-            <div class="chip-wrap">${chips}</div>
-          </section>
-        `;
-      }).join('');
-
-      root.querySelectorAll('[data-filter-key]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const key = btn.dataset.filterKey;
-          const value = btn.dataset.filterValue;
-          const set = state.filters[key];
-          if (set.has(value)) set.delete(value);
-          else set.add(value);
-          renderFilters();
-          applyFilters();
-        });
-      });
-
-      $('#selectedCountPill').textContent = `선택된 필터 ${getSelectedCount()}개`;
-    }
-
-    function matchesGroup(selectedSet, valueOrArray) {
-      if (!selectedSet || selectedSet.size === 0) return true;
-      if (Array.isArray(valueOrArray)) return valueOrArray.some(v => selectedSet.has(v));
-      return selectedSet.has(valueOrArray);
-    }
-
-    function sortCards(cards, mode) {
-      const arr = [...cards];
-      const rarityWeight = { EX: 5, UR: 4, SSR: 3, SR: 2, R: 1 };
-
-      switch (mode) {
-        case 'idDesc':
-          arr.sort((a, b) => Number(b.id) - Number(a.id));
-          break;
-        case 'nameAsc':
-          arr.sort((a, b) => (a.display_name || '').localeCompare(b.display_name || '', 'ja'));
-          break;
-        case 'rarityDesc':
-          arr.sort((a, b) => {
-            const diff = (rarityWeight[b.rarity_group] || 0) - (rarityWeight[a.rarity_group] || 0);
-            return diff || Number(a.id) - Number(b.id);
-          });
-          break;
-        case 'idAsc':
-        default:
-          arr.sort((a, b) => Number(a.id) - Number(b.id));
-          break;
-      }
-      return arr;
-    }
-
-    function applyFilters() {
-      const q = state.search.trim().toLowerCase();
-      let result = state.cards.filter(card => {
-        if (q && !card.searchBlob.includes(q)) return false;
-        if (!matchesGroup(state.filters.rarity_group, card.rarity_group)) return false;
-        if (!matchesGroup(state.filters.type, card.type)) return false;
-        if (!matchesGroup(state.filters.attribute, card.attribute)) return false;
-        if (!matchesGroup(state.filters.affiliation, card.affiliation)) return false;
-        if (!matchesGroup(state.filters.leader, card.filter_leader)) return false;
-        if (!matchesGroup(state.filters.active, card.filter_active)) return false;
-
-        if (state.view === 'hasThumb' && !card.thumb_url) return false;
-        if (state.view === 'hasLeader' && !card.leader_skill_raw) return false;
-        if (state.view === 'hasActive' && !card.active_skill_raw) return false;
         return true;
       });
 
-      state.filtered = sortCards(result, state.sort);
-      renderCards();
-      updateStatus();
+      sortCards(filtered);
+      drawCards(filtered);
+      els.countText.textContent = `표시 카드: ${filtered.length} / 전체 ${state.cards.length}`;
     }
 
-    function renderCards() {
-      const grid = $('#cardGrid');
-      if (!state.filtered.length) {
-        grid.innerHTML = `<div class="empty">조건에 맞는 카드가 없습니다.<br>검색어 또는 필터를 다시 확인해 주세요.</div>`;
+    function matchesOrWithinGroup(value, selectedSet) {
+      if (selectedSet.size === 0) return true;
+      return selectedSet.has(String(value || '').trim());
+    }
+
+    function matchesTagGroup(tags, selectedSet) {
+      if (selectedSet.size === 0) return true;
+      return tags.some(tag => selectedSet.has(tag));
+    }
+
+    function sortCards(cards) {
+      const mode = els.sortSelect.value;
+      cards.sort((a, b) => {
+        if (mode === 'idDesc') return b.idNum - a.idNum;
+        if (mode === 'nameAsc') return a.display_name_jp.localeCompare(b.display_name_jp, 'ja');
+        if (mode === 'rarityDesc') {
+          const diff = (rarityRank[b.rarity_group] || 0) - (rarityRank[a.rarity_group] || 0);
+          return diff || a.idNum - b.idNum;
+        }
+        return a.idNum - b.idNum;
+      });
+    }
+
+    function drawCards(cards) {
+      els.cards.innerHTML = '';
+
+      if (cards.length === 0) {
+        els.cards.hidden = true;
+        showStatus('조건에 맞는 카드가 없습니다.');
         return;
       }
 
-      grid.innerHTML = state.filtered.map(card => {
-        const metaPills = [card.rarity_group, card.attribute, card.type, card.affiliation]
-          .filter(Boolean)
-          .map(v => `<span class="pill">${escapeHtml(v)}</span>`)
-          .join('');
+      els.cards.hidden = false;
+      els.statusBox.hidden = true;
 
-        const leaderTags = card.filter_leader.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join('');
-        const activeTags = card.filter_active.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join('');
+      for (const card of cards) {
+        const leaderTags = getLeaderTags(card);
+        const activeTags = getActiveTags(card);
 
-        const fandomBtn = card.fandom_url ? `<a class="link-btn" href="${escapeHtml(card.fandom_url)}" target="_blank" rel="noopener">Fandom</a>` : '';
-        const gamerchBtn = card.gamerch_url ? `<a class="link-btn" href="${escapeHtml(card.gamerch_url)}" target="_blank" rel="noopener">Gamerch</a>` : '';
+        const article = document.createElement('article');
+        article.className = 'card';
 
-        return `
-          <article class="card">
-            <div class="card-top">
-              <div class="thumb-wrap">
-                ${card.thumb_url
-                  ? `<img src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.display_name || card.id)}" loading="lazy" onerror="this.remove(); this.parentNode.innerHTML='<div class=\'thumb-fallback\'>이미지<br>로드 실패</div>';">`
-                  : `<div class="thumb-fallback">${CONFIG.IMAGE_FALLBACK_TEXT}</div>`}
-              </div>
-              <div>
-                <div class="card-no">No.${escapeHtml(card.no_jp || card.id)}</div>
-                <div class="card-name">${escapeHtml(card.display_name)}</div>
-                <div class="meta-line">${metaPills}</div>
-                <div class="links">${fandomBtn}${gamerchBtn}</div>
+        article.innerHTML = `
+          <div class="card-main">
+            <div class="thumb">
+              ${card.thumb_url ? `<img src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.display_name_jp)}" loading="lazy">` : `<div class="thumb-empty">이미지 없음</div>`}
+            </div>
+            <div>
+              <div class="name">${escapeHtml(card.display_name_jp)}</div>
+              <div class="meta">
+                ${badge(card.no_jp || card.id)}
+                ${badge(card.rarity_group || card.rarity)}
+                ${badge(card.attribute)}
+                ${badge(card.type)}
+                ${badge(card.affiliation)}
               </div>
             </div>
+          </div>
 
-            <div class="card-body">
-              <section class="skill-box">
-                <div class="skill-label"><span>리더 스킬</span></div>
-                <div class="skill-name">${escapeHtml(card.leader_skill_name || '정보 없음')}</div>
-                <div class="skill-text">${escapeHtml(card.leader_skill_raw || '정보 없음')}</div>
-                ${leaderTags ? `<div class="tag-row">${leaderTags}</div>` : ''}
-              </section>
+          <div class="skill-box">
+            <div class="skill-title">리더 스킬</div>
+            <div class="skill-name">${escapeHtml(card.leader_skill_name || '-')}</div>
+            <div class="skill-text">${escapeHtml(card.leader_skill_raw || '-')}</div>
+            <div class="tag-row">${leaderTags.map(tagPill).join('')}</div>
+          </div>
 
-              <section class="skill-box">
-                <div class="skill-label"><span>액티브 스킬</span></div>
-                <div class="skill-name">${escapeHtml(card.active_skill_name || '정보 없음')}</div>
-                <div class="skill-text">${escapeHtml(card.active_skill_raw || '정보 없음')}</div>
-                ${activeTags ? `<div class="tag-row">${activeTags}</div>` : ''}
-              </section>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
+          <div class="skill-box">
+            <div class="skill-title">액티브 스킬</div>
+            <div class="skill-name">${escapeHtml(card.active_skill_name || '-')}</div>
+            <div class="skill-text">${escapeHtml(card.active_skill_raw || '-')}</div>
+            <div class="tag-row">${activeTags.map(tagPill).join('')}</div>
+          </div>
 
-    function updateStatus() {
-      $('#statusText').textContent = `전체 ${state.cards.length}장 중 ${state.filtered.length}장 표시`;
-      $('#summaryTop').textContent = `로딩 완료 · 총 ${state.cards.length}장`;
-      $('#selectedCountPill').textContent = `선택된 필터 ${getSelectedCount()}개`;
-    }
-
-    async function loadCards() {
-      $('#summaryTop').textContent = '데이터 불러오는 중...';
-      $('#sourceLabel').textContent = CONFIG.DATA_URL;
-
-      try {
-        const res = await fetch(CONFIG.DATA_URL, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        if (!Array.isArray(data)) throw new Error('JSON 최상위 구조가 배열이 아닙니다.');
-
-        state.cards = data.map(normalizeCard);
-        renderFilters();
-        applyFilters();
-      } catch (err) {
-        $('#summaryTop').textContent = '데이터 로드 실패';
-        $('#cardGrid').innerHTML = `
-          <div class="empty">
-            데이터를 불러오지 못했습니다.<br><br>
-            에러: ${escapeHtml(err.message || String(err))}<br><br>
-            <strong>확인할 것</strong><br>
-            1. JSON 주소가 raw URL인지<br>
-            2. 공개 접근 가능한지<br>
-            3. JSON 최상위가 배열인지
+          <div class="links">
+            ${card.fandom_url ? `<a href="${escapeHtml(card.fandom_url)}" target="_blank" rel="noopener noreferrer">Fandom</a>` : ''}
+            ${card.gamerch_url ? `<a href="${escapeHtml(card.gamerch_url)}" target="_blank" rel="noopener noreferrer">Gamerch</a>` : ''}
           </div>
         `;
+
+        els.cards.appendChild(article);
       }
     }
 
-    function resetFilters() {
-      FILTER_DEFS.forEach(def => state.filters[def.key].clear());
-      state.search = '';
-      state.sort = 'idAsc';
-      state.view = 'all';
-      $('#searchInput').value = '';
-      $('#sortSelect').value = 'idAsc';
-      $('#viewSelect').value = 'all';
-      renderFilters();
-      applyFilters();
+    function badge(text) {
+      const value = String(text || '').trim();
+      return value ? `<span class="badge">${escapeHtml(value)}</span>` : '';
     }
 
-    function bindEvents() {
-      $('#searchInput').addEventListener('input', (e) => {
-        state.search = e.target.value;
-        applyFilters();
-      });
-
-      $('#sortSelect').addEventListener('change', (e) => {
-        state.sort = e.target.value;
-        applyFilters();
-      });
-
-      $('#viewSelect').addEventListener('change', (e) => {
-        state.view = e.target.value;
-        applyFilters();
-      });
-
-      $('#resetBtn').addEventListener('click', resetFilters);
-      $('#reloadBtn').addEventListener('click', loadCards);
-      $('#collapseBtn').addEventListener('click', () => {
-        state.filterCollapsed = !state.filterCollapsed;
-        $('#filterPanel').style.display = state.filterCollapsed ? 'none' : 'block';
-      });
+    function tagPill(text) {
+      return `<span class="tag">${escapeHtml(text)}</span>`;
     }
 
-    bindEvents();
-    renderFilters();
-    loadCards();
+    function showStatus(text, isError = false) {
+      els.cards.hidden = true;
+      els.statusBox.hidden = false;
+      els.statusBox.className = `status${isError ? ' error' : ''}`;
+      els.statusBox.textContent = text;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
   </script>
 </body>
 </html>
