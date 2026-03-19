@@ -440,7 +440,7 @@
         </div>
         <div class="source-box">
           현재 데이터 소스: <code id="sourceLabel"></code><br>
-          나중에 구글 시트나 Apps Script URL로 바꿀 때는 아래 <code>CONFIG.DATA_URL</code>만 교체하면 됩니다.
+          태그는 JSON 값보다 스킬 원문을 우선 기준으로 다시 계산합니다.
         </div>
       </div>
 
@@ -461,10 +461,7 @@
 
   <script>
     const CONFIG = {
-      // 나중에 바꿀 부분
       DATA_URL: 'https://raw.githubusercontent.com/AtaraxyK/bungofilter/main/cards_sheet_ready.json',
-      // 예: 'https://raw.githubusercontent.com/AtaraxyK/bungofilter/main/cards_sheet_ready.json'
-      USE_FINAL_TAG_TEXT: true,
       IMAGE_FALLBACK_TEXT: '이미지 없음'
     };
 
@@ -496,6 +493,32 @@
 
     const $ = (sel) => document.querySelector(sel);
 
+    const ATTR_KEYWORDS = {
+      '적[紅]속성': ['紅属性', '赤属性', '紅', '赤', 'Crimson'],
+      '청속성': ['蒼属性', '青属性', '蒼', '青', 'Azure'],
+      '녹속성': ['緑属性', '緑', 'Emerald'],
+      '광속성': ['光属性', '光', 'Light'],
+      '암속성': ['闇属性', '闇', 'Dark']
+    };
+
+    const AFFILIATION_KEYWORDS = {
+      '무장 탐정사': ['武装探偵社', 'Armed Detective Agency'],
+      '포트 마피아': ['ポートマフィア', 'Port Mafia'],
+      '연합': ['組合', 'ギルド', 'Guild', 'The Guild'],
+      '이능특무과': ['異能特務課', 'Supernatural Ability Special Investigation Division'],
+      '미믹': ['ミミック', 'Mimic'],
+      '죽음의 집의 쥐': ['死の家の鼠', 'Rats in the House of the Dead'],
+      '무소속': ['無所属', 'Independent']
+    };
+
+    const TYPE_KEYWORDS = {
+      '공격형': ['攻撃型', 'Offensive Types'],
+      '지원형': ['支援型', 'Support Types'],
+      '밸런스형': ['バランス型', 'Balanced Types'],
+      '특수형': ['特殊型', 'Special Types'],
+      '방어형': ['防御型', 'Defensive Types']
+    };
+
     function escapeHtml(str = '') {
       return String(str)
         .replace(/&/g, '&amp;')
@@ -505,17 +528,111 @@
         .replace(/'/g, '&#039;');
     }
 
+    function splitPipe(text) {
+      if (!text) return [];
+      return [...new Set(String(text).split('|').map(v => v.trim()).filter(Boolean))];
+    }
+
+    function unique(values) {
+      return [...new Set((values || []).filter(Boolean))];
+    }
+
+    function normalizeSkillText(text = '') {
+      return String(text).replace(/\s+/g, ' ').trim();
+    }
+
+    function splitClauses(text = '') {
+      return normalizeSkillText(text)
+        .split(/(?:&|＆|\/|／|、|。|\.|;|；|・|\n)+/)
+        .map(v => v.trim())
+        .filter(Boolean);
+    }
+
+    function findTargets(text, dict) {
+      const found = [];
+      for (const [label, keywords] of Object.entries(dict)) {
+        if (keywords.some(keyword => text.includes(keyword))) {
+          found.push(label);
+        }
+      }
+      return found;
+    }
+
+    function hasAttackBuff(text) {
+      return [
+        '攻撃力を', '攻撃力が', '攻撃力アップ', '攻撃力をアップ', '攻撃力上昇',
+        '与ダメージ', 'ダメージアップ', 'ATK', 'Attack', 'attack power', 'ATK UP'
+      ].some(keyword => text.includes(keyword));
+    }
+
+    function hasTeamAllKeyword(text) {
+      return ['チーム全員', 'チームメンバー', '全員', 'Team members', 'all Team members'].some(keyword => text.includes(keyword));
+    }
+
+    function inferLeaderTagsFromText(rawText = '') {
+      const clauses = splitClauses(rawText);
+      const tags = [];
+
+      for (const clause of clauses) {
+        if (!hasAttackBuff(clause)) continue;
+
+        const attrs = findTargets(clause, ATTR_KEYWORDS);
+        const affs = findTargets(clause, AFFILIATION_KEYWORDS);
+        const types = findTargets(clause, TYPE_KEYWORDS);
+
+        if (affs.length) tags.push('소속별 공증');
+        if (attrs.length) tags.push('속성별 공증');
+        if (types.length) tags.push('타입별 공증');
+
+        if (!affs.length && !attrs.length && !types.length) {
+          if (hasTeamAllKeyword(clause) || clauses.length === 1) {
+            tags.push('팀원 전체 공증');
+          }
+        }
+      }
+
+      return unique(tags);
+    }
+
+    function inferActiveTagsFromText(rawText = '') {
+      const clauses = splitClauses(rawText);
+      const tags = [];
+
+      for (const clause of clauses) {
+        const isDamage = ['ダメージ', '攻撃', 'Deals', 'damage'].some(keyword => clause.includes(keyword));
+        const isSingle = ['敵単体', '単体に', 'to an enemy', '1 enemy'].some(keyword => clause.includes(keyword));
+        const isAll = ['敵全体', '敵全員', '全体に', 'to all enemies', 'all enemies'].some(keyword => clause.includes(keyword));
+        const isAtkBuff = (clause.includes('攻撃力') || clause.includes('ATK')) && ['アップ', '上昇', 'Increase', 'Raises', 'UP'].some(keyword => clause.includes(keyword));
+        const attrs = findTargets(clause, ATTR_KEYWORDS);
+
+        if (isDamage && isSingle) tags.push('단일 공격');
+        if (isDamage && isAll) tags.push('전체 공격');
+
+        if (isAtkBuff) {
+          if (attrs.length) tags.push('속성별 공증 버프');
+          else if (hasTeamAllKeyword(clause)) tags.push('전체 공증 버프');
+        }
+      }
+
+      return unique(tags);
+    }
+
+    function getDisplayName(card) {
+      if (card.name_jp) return card.name_jp;
+      if (card.character_name_jp) return card.character_name_jp;
+      if (card.character_name_en) return card.character_name_en;
+      return card.id || 'Unknown';
+    }
+
     function normalizeCard(card) {
-      const leaderText = card.leader_tags_final_text || card.leader_tags_auto_text || '';
-      const activeText = card.active_tags_final_text || card.active_tags_auto_text || '';
+      const leaderLive = inferLeaderTagsFromText(card.leader_skill_raw || '');
+      const activeLive = inferActiveTagsFromText(card.active_skill_raw || '');
+      const fallbackLeader = splitPipe(card.leader_tags_final_text || card.leader_tags_auto_text || '');
+      const fallbackActive = splitPipe(card.active_tags_final_text || card.active_tags_auto_text || '');
+      const displayName = getDisplayName(card);
 
-      const leaderArr = CONFIG.USE_FINAL_TAG_TEXT
-        ? splitPipe(card.leader_tags_final_text || card.leader_tags_auto_text || '')
-        : (Array.isArray(card.filter_leader) ? card.filter_leader : splitPipe(card.leader_tags_auto_text || ''));
-
-      const activeArr = CONFIG.USE_FINAL_TAG_TEXT
-        ? splitPipe(card.active_tags_final_text || card.active_tags_auto_text || '')
-        : (Array.isArray(card.filter_active) ? card.filter_active : splitPipe(card.active_tags_auto_text || ''));
+      const leaderArr = leaderLive.length ? leaderLive : fallbackLeader;
+      const activeArr = activeLive.length ? activeLive : fallbackActive;
 
       return {
         ...card,
@@ -527,7 +644,9 @@
         affiliation: card.affiliation || '',
         name_jp: card.name_jp || '',
         character_name_jp: card.character_name_jp || '',
+        character_name_en: card.character_name_en || '',
         title_jp: card.title_jp || '',
+        display_name: displayName,
         thumb_url: card.thumb_url || '',
         leader_skill_name: card.leader_skill_name || '',
         leader_skill_raw: card.leader_skill_raw || '',
@@ -535,12 +654,10 @@
         active_skill_raw: card.active_skill_raw || '',
         filter_leader: leaderArr,
         filter_active: activeArr,
-        leader_tags_display_text: leaderText,
-        active_tags_display_text: activeText,
         searchBlob: [
           card.id,
           card.no_jp,
-          card.name_jp,
+          displayName,
           card.character_name_jp,
           card.character_name_en,
           card.title_jp,
@@ -551,15 +668,10 @@
           card.leader_skill_raw,
           card.active_skill_name,
           card.active_skill_raw,
-          leaderText,
-          activeText
+          leaderArr.join(' '),
+          activeArr.join(' ')
         ].join(' ').toLowerCase()
       };
-    }
-
-    function splitPipe(text) {
-      if (!text) return [];
-      return [...new Set(String(text).split('|').map(v => v.trim()).filter(Boolean))];
     }
 
     function getSelectedCount() {
@@ -602,11 +714,33 @@
 
     function matchesGroup(selectedSet, valueOrArray) {
       if (!selectedSet || selectedSet.size === 0) return true;
-
-      if (Array.isArray(valueOrArray)) {
-        return valueOrArray.some(v => selectedSet.has(v));
-      }
+      if (Array.isArray(valueOrArray)) return valueOrArray.some(v => selectedSet.has(v));
       return selectedSet.has(valueOrArray);
+    }
+
+    function sortCards(cards, mode) {
+      const arr = [...cards];
+      const rarityWeight = { EX: 5, UR: 4, SSR: 3, SR: 2, R: 1 };
+
+      switch (mode) {
+        case 'idDesc':
+          arr.sort((a, b) => Number(b.id) - Number(a.id));
+          break;
+        case 'nameAsc':
+          arr.sort((a, b) => (a.display_name || '').localeCompare(b.display_name || '', 'ja'));
+          break;
+        case 'rarityDesc':
+          arr.sort((a, b) => {
+            const diff = (rarityWeight[b.rarity_group] || 0) - (rarityWeight[a.rarity_group] || 0);
+            return diff || Number(a.id) - Number(b.id);
+          });
+          break;
+        case 'idAsc':
+        default:
+          arr.sort((a, b) => Number(a.id) - Number(b.id));
+          break;
+      }
+      return arr;
     }
 
     function applyFilters() {
@@ -623,39 +757,12 @@
         if (state.view === 'hasThumb' && !card.thumb_url) return false;
         if (state.view === 'hasLeader' && !card.leader_skill_raw) return false;
         if (state.view === 'hasActive' && !card.active_skill_raw) return false;
-
         return true;
       });
 
-      result = sortCards(result, state.sort);
-      state.filtered = result;
+      state.filtered = sortCards(result, state.sort);
       renderCards();
       updateStatus();
-    }
-
-    function sortCards(cards, mode) {
-      const arr = [...cards];
-      const rarityWeight = { EX: 5, UR: 4, SSR: 3, SR: 2, R: 1 };
-
-      switch (mode) {
-        case 'idDesc':
-          arr.sort((a, b) => Number(b.id) - Number(a.id));
-          break;
-        case 'nameAsc':
-          arr.sort((a, b) => (a.name_jp || '').localeCompare(b.name_jp || '', 'ja'));
-          break;
-        case 'rarityDesc':
-          arr.sort((a, b) => {
-            const diff = (rarityWeight[b.rarity_group] || 0) - (rarityWeight[a.rarity_group] || 0);
-            return diff || Number(a.id) - Number(b.id);
-          });
-          break;
-        case 'idAsc':
-        default:
-          arr.sort((a, b) => Number(a.id) - Number(b.id));
-          break;
-      }
-      return arr;
     }
 
     function renderCards() {
@@ -682,12 +789,12 @@
             <div class="card-top">
               <div class="thumb-wrap">
                 ${card.thumb_url
-                  ? `<img src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.name_jp || card.id)}" loading="lazy" onerror="this.remove(); this.parentNode.innerHTML='<div class=\'thumb-fallback\'>이미지<br>로드 실패</div>';">`
+                  ? `<img src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.display_name || card.id)}" loading="lazy" onerror="this.remove(); this.parentNode.innerHTML='<div class=\'thumb-fallback\'>이미지<br>로드 실패</div>';">`
                   : `<div class="thumb-fallback">${CONFIG.IMAGE_FALLBACK_TEXT}</div>`}
               </div>
               <div>
                 <div class="card-no">No.${escapeHtml(card.no_jp || card.id)}</div>
-                <div class="card-name">${escapeHtml(card.name_jp || card.character_name_jp || card.id)}</div>
+                <div class="card-name">${escapeHtml(card.display_name)}</div>
                 <div class="meta-line">${metaPills}</div>
                 <div class="links">${fandomBtn}${gamerchBtn}</div>
               </div>
@@ -736,13 +843,11 @@
         $('#summaryTop').textContent = '데이터 로드 실패';
         $('#cardGrid').innerHTML = `
           <div class="empty">
-            데이터를 불러오지 못했습니다.<br>
-            <br>
-            에러: ${escapeHtml(err.message || String(err))}<br>
-            <br>
+            데이터를 불러오지 못했습니다.<br><br>
+            에러: ${escapeHtml(err.message || String(err))}<br><br>
             <strong>확인할 것</strong><br>
-            1. CONFIG.DATA_URL 주소가 raw JSON 주소인지<br>
-            2. CORS 또는 공개 접근이 가능한지<br>
+            1. JSON 주소가 raw URL인지<br>
+            2. 공개 접근 가능한지<br>
             3. JSON 최상위가 배열인지
           </div>
         `;
