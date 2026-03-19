@@ -468,7 +468,7 @@
     const FILTER_DEFS = [
       { key: 'rarity_group', label: '등급', options: ['R', 'SR', 'SSR', 'UR', 'EX'] },
       { key: 'type', label: '카드 타입', options: ['공격형', '지원형', '밸런스형', '특수형', '방어형'] },
-      { key: 'attribute', label: '속성 타입', options: ['적[紅]속성', '청속성', '녹속성', '광속성', '암속성'] },
+      { key: 'attribute', label: '속성 타입', options: ['적속성', '청속성', '녹속성', '광속성', '암속성'] },
       { key: 'affiliation', label: '소속', options: ['무장 탐정사', '포트 마피아', '연합', '이능특무과', '미믹', '죽음의 집의 쥐', '무소속'] },
       { key: 'leader', label: '리더 스킬', options: ['팀원 전체 공증', '소속별 공증', '속성별 공증', '타입별 공증'] },
       { key: 'active', label: '액티브 스킬', options: ['단일 공격', '전체 공격', '전체 공증 버프', '속성별 공증 버프'] }
@@ -494,7 +494,7 @@
     const $ = (sel) => document.querySelector(sel);
 
     const ATTR_KEYWORDS = {
-      '적[紅]속성': ['紅属性', '赤属性', '紅', '赤', 'Crimson'],
+      '적속성': ['紅属性', '赤属性', '紅', '赤', 'Crimson'],
       '청속성': ['蒼属性', '青属性', '蒼', '青', 'Azure'],
       '녹속성': ['緑属性', '緑', 'Emerald'],
       '광속성': ['光属性', '光', 'Light'],
