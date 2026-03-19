@@ -3,543 +3,790 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BSD Mayoi Filter v2</title>
+  <title>문호 스트레이독스 미궁괴담 카드 필터</title>
   <style>
-    :root{
-      --bg:#0f1115; --panel:#171a21; --line:#2b3340; --text:#e8ecf3; --muted:#aeb7c6;
-      --chip:#273246; --chip-on:#3a69d8; --accent:#7aa2ff; --box:#131820;
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1e2330;
+      --border: #2b3244;
+      --text: #eef2ff;
+      --muted: #a7b0c3;
+      --accent: #7aa2ff;
+      --accent-2: #9f7aea;
+      --chip: #252c3a;
+      --chip-on: #3d5fb8;
+      --danger: #ff6b6b;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
-    .wrap{max-width:1500px;margin:0 auto;padding:20px}
-    h1{margin:0 0 8px;font-size:28px}
-    .desc{color:var(--muted);line-height:1.55;margin-bottom:18px}
-    .topbar{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
-    input,select,button{font:inherit}
-    input[type=text],select{
-      width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);
-      background:var(--panel);color:var(--text)
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Inter, Pretendard, "Noto Sans KR", system-ui, sans-serif; }
+    body { min-height: 100vh; }
+
+    .page {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 28px 18px 56px;
     }
-    .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
-    .section-title{font-size:14px;color:var(--muted);margin-bottom:10px}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{border:1px solid var(--line);background:var(--chip);color:var(--text);padding:8px 11px;border-radius:999px;cursor:pointer}
-    .chip.active{background:var(--chip-on);border-color:#5f8fff}
-    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    button{border:1px solid var(--line);background:#1e232d;color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer}
-    .summary{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0 16px;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-    .card-top{display:grid;grid-template-columns:104px 1fr;gap:12px;padding:12px;border-bottom:1px solid var(--line)}
-    .thumb{width:104px;height:104px;object-fit:cover;border-radius:12px;background:#0b0d11;border:1px solid var(--line)}
-    .thumb-fallback{width:104px;height:104px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);background:linear-gradient(135deg,#1d2430,#11151d)}
-    .title{font-size:18px;line-height:1.3;margin:0 0 6px}
-    .sub{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:8px}
-    .meta{display:flex;flex-wrap:wrap;gap:6px}
-    .badge{font-size:12px;padding:5px 8px;border-radius:999px;background:#222a35;border:1px solid var(--line)}
-    .body{padding:12px;display:grid;gap:10px}
-    .skill-box{background:var(--box);border:1px solid var(--line);border-radius:12px;padding:10px}
-    .skill-label{font-size:12px;color:var(--accent);margin-bottom:8px;font-weight:700}
-    .summary-line{font-size:13px;line-height:1.6;padding:6px 8px;border-radius:10px;background:#1b2330;margin-top:6px}
-    .summary-tag{display:inline-block;min-width:78px;margin-right:8px;color:#9dc0ff;font-weight:700}
-    .raw{margin-top:8px}
-    .raw summary{cursor:pointer;color:var(--muted);font-size:12px}
-    .raw pre{
-      margin:8px 0 0;padding:8px;border-radius:10px;background:#0f141d;border:1px solid var(--line);
-      white-space:pre-wrap;word-break:break-word;color:#cfd8e8;font-size:12px;line-height:1.45
+
+    .hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
     }
-    .empty{padding:30px 20px;text-align:center;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:16px}
-    .link{color:#9dc0ff;text-decoration:none;font-size:13px}
-    .footer{padding:0 12px 12px}
-    .note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
-    @media (max-width:960px){
-      .topbar{grid-template-columns:1fr}
-      .card-top{grid-template-columns:88px 1fr}
-      .thumb,.thumb-fallback{width:88px;height:88px}
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero .summary {
+      text-align: right;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.15fr .9fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-panel,
+    .filter-panel {
+      padding: 16px;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1fr 180px 180px;
+      gap: 10px;
+    }
+
+    input[type="search"],
+    select,
+    input[type="text"] {
+      width: 100%;
+      height: 46px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #11151d;
+      color: var(--text);
+      padding: 0 14px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input[type="search"]:focus,
+    select:focus,
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(122,162,255,.15);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      height: 42px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 0 14px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .18s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    .primary-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: none;
+      color: white;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .filter-group {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.04);
+    }
+
+    .filter-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .filter-title h3 {
+      margin: 0;
+      font-size: 14px;
+      color: #f6f8ff;
+    }
+
+    .filter-title span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--chip);
+      color: #dbe4ff;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      transition: .16s ease;
+    }
+
+    .chip:hover { border-color: var(--accent); }
+    .chip.on {
+      background: var(--chip-on);
+      border-color: transparent;
+      color: white;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 14px;
+      flex-wrap: wrap;
+    }
+
+    .status-left { color: var(--muted); font-size: 14px; }
+    .status-right { display: flex; gap: 10px; align-items: center; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .thumb-wrap {
+      width: 92px;
+      height: 92px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #202636, #131722);
+      border: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb-fallback {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+      line-height: 1.4;
+    }
+
+    .card-no {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .card-name {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.28;
+      margin-bottom: 8px;
+    }
+
+    .meta-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      font-size: 12px;
+      color: #dfe6ff;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-box {
+      padding: 12px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 14px;
+    }
+
+    .skill-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .skill-name {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      color: #f7f9ff;
+    }
+
+    .skill-text {
+      font-size: 13px;
+      color: #ced5e8;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 26px;
+      padding: 0 9px;
+      align-items: center;
+      font-size: 12px;
+      border-radius: 999px;
+      background: rgba(122,162,255,.12);
+      color: #d6e4ff;
+      border: 1px solid rgba(122,162,255,.18);
+    }
+
+    .links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .empty {
+      padding: 42px 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,.015);
+    }
+
+    .source-box {
+      margin-top: 14px;
+      padding: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .source-box code {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      color: #dfe7ff;
+    }
+
+    @media (max-width: 1180px) {
+      .toolbar { grid-template-columns: 1fr; }
+      .filters { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .search-grid { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; align-items: flex-start; }
+      .hero .summary { text-align: left; }
+      .card-top { grid-template-columns: 76px 1fr; }
+      .thumb-wrap { width: 76px; height: 76px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>문호 스트레이독스 미궁괴담 카드 필터</h1>
-    <div class="desc">
-      수정 버전입니다. <strong>Reduces</strong>를 <strong>Red</strong>로 잘못 잡지 않도록 단어 경계를 넣었고,
-      스킬을 절 단위로 분리해 <strong>공격 / 공증 / 피해감소</strong>를 따로 판정합니다.
-      액티브는 <strong>단일공격 + 속성공증</strong> 같이 복합 태그도 함께 붙도록 다시 계산합니다.
-      다만 <strong>cards.json 원문 자체가 잘못 들어간 카드</strong>는 HTML만으로는 정답 복원이 불가능합니다.
-    </div>
-
-    <div class="topbar">
-      <input id="searchInput" type="text" placeholder="카드명 / 제목 / 요약 검색" />
-      <select id="groupSelect"><option value="">소속 전체</option></select>
-      <select id="attributeSelect"><option value="">속성 전체</option></select>
-      <select id="sortSelect">
-        <option value="id">정렬: 카드 ID</option>
-        <option value="name">정렬: 이름</option>
-      </select>
-    </div>
-
-    <div class="panel">
-      <div class="section-title">등급 태그 (OR)</div>
-      <div id="rarityTags" class="chips"></div>
-    </div>
-
-    <div class="panel">
-      <div class="section-title">리더 스킬 태그 (OR)</div>
-      <div id="leaderTags" class="chips"></div>
-      <div class="actions"><button id="clearLeader">리더 태그 초기화</button></div>
-    </div>
-
-    <div class="panel">
-      <div class="section-title">액티브 스킬 태그 (OR)</div>
-      <div id="activeTags" class="chips"></div>
-      <div class="actions">
-        <button id="clearActive">액티브 태그 초기화</button>
-        <button id="clearRarity">등급 태그 초기화</button>
-        <button id="clearAll">전체 필터 초기화</button>
+  <div class="page">
+    <section class="hero">
+      <div>
+        <h1>문호 스트레이독스<br>미궁괴담 카드 필터</h1>
+        <p>같은 필터 그룹 안에서는 OR, 서로 다른 그룹끼리는 AND로 동작합니다.</p>
       </div>
-      <div class="note">단일공격 / 전체공격 태그와 공증 태그는 동시에 붙을 수 있습니다.</div>
+      <div class="summary" id="summaryTop">데이터 로딩 중...</div>
+    </section>
+
+    <section class="toolbar">
+      <div class="panel search-panel">
+        <div class="search-grid">
+          <input id="searchInput" type="search" placeholder="카드명 / 캐릭터명 / 스킬명 / 스킬 설명 검색" />
+          <select id="sortSelect">
+            <option value="idAsc">번호 오름차순</option>
+            <option value="idDesc">번호 내림차순</option>
+            <option value="nameAsc">이름 오름차순</option>
+            <option value="rarityDesc">등급 높은 순</option>
+          </select>
+          <select id="viewSelect">
+            <option value="all">전체 보기</option>
+            <option value="hasThumb">이미지 있는 카드만</option>
+            <option value="hasLeader">리더 스킬 있는 카드만</option>
+            <option value="hasActive">액티브 스킬 있는 카드만</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button class="primary-btn" id="reloadBtn" type="button">데이터 다시 불러오기</button>
+          <button id="resetBtn" type="button">필터 초기화</button>
+          <button id="collapseBtn" type="button">필터 접기/펼치기</button>
+        </div>
+        <div class="source-box">
+          현재 데이터 소스: <code id="sourceLabel"></code><br>
+          나중에 구글 시트나 Apps Script URL로 바꿀 때는 아래 <code>CONFIG.DATA_URL</code>만 교체하면 됩니다.
+        </div>
+      </div>
+
+      <div class="panel filter-panel" id="filterPanel">
+        <div class="filters" id="filtersRoot"></div>
+      </div>
+    </section>
+
+    <div class="status-bar">
+      <div class="status-left" id="statusText">0건</div>
+      <div class="status-right">
+        <span class="pill" id="selectedCountPill">선택된 필터 0개</span>
+      </div>
     </div>
 
-    <div class="summary">
-      <div id="resultCount">불러오는 중...</div>
-      <div id="loadState"></div>
-    </div>
-
-    <div id="cardGrid" class="grid"></div>
+    <section class="grid" id="cardGrid"></section>
   </div>
 
   <script>
-    const state = {
-      cards: [],
-      selectedLeaderTags: new Set(),
-      selectedActiveTags: new Set(),
-      selectedRarityTags: new Set(),
-      search: '',
-      group: '',
-      attribute: '',
-      sort: 'id'
+    const CONFIG = {
+      // 나중에 바꿀 부분
+      DATA_URL: 'https://raw.githubusercontent.com/AtaraxyK/bungofilter/main/cards_sheet_ready.json',
+      // 예: 'https://raw.githubusercontent.com/AtaraxyK/bungofilter/main/cards_sheet_ready.json'
+      USE_FINAL_TAG_TEXT: true,
+      IMAGE_FALLBACK_TEXT: '이미지 없음'
     };
 
-    const leaderPreferredOrder = ['전체공증','무장탐정사공증','포트마피아공증','홍속공증','청속공증','녹속공증','광속공증','암속공증'];
-    const activePreferredOrder = ['단일공격','전체공격','전체공증','홍속공증','청속공증','녹속공증','광속공증','암속공증'];
-    const rarityOrder = ['R','SR','SSR','UR','EX'];
+    const FILTER_DEFS = [
+      { key: 'rarity_group', label: '등급', options: ['R', 'SR', 'SSR', 'UR', 'EX'] },
+      { key: 'type', label: '카드 타입', options: ['공격형', '지원형', '밸런스형', '특수형', '방어형'] },
+      { key: 'attribute', label: '속성 타입', options: ['적[紅]속성', '청속성', '녹속성', '광속성', '암속성'] },
+      { key: 'affiliation', label: '소속', options: ['무장 탐정사', '포트 마피아', '연합', '이능특무과', '미믹', '죽음의 집의 쥐', '무소속'] },
+      { key: 'leader', label: '리더 스킬', options: ['팀원 전체 공증', '소속별 공증', '속성별 공증', '타입별 공증'] },
+      { key: 'active', label: '액티브 스킬', options: ['단일 공격', '전체 공격', '전체 공증 버프', '속성별 공증 버프'] }
+    ];
 
-    const rarityContainer = document.getElementById('rarityTags');
-    const leaderContainer = document.getElementById('leaderTags');
-    const activeContainer = document.getElementById('activeTags');
-    const searchInput = document.getElementById('searchInput');
-    const groupSelect = document.getElementById('groupSelect');
-    const attributeSelect = document.getElementById('attributeSelect');
-    const sortSelect = document.getElementById('sortSelect');
-    const resultCount = document.getElementById('resultCount');
-    const loadState = document.getElementById('loadState');
-    const cardGrid = document.getElementById('cardGrid');
+    const state = {
+      cards: [],
+      filtered: [],
+      filters: {
+        rarity_group: new Set(),
+        type: new Set(),
+        attribute: new Set(),
+        affiliation: new Set(),
+        leader: new Set(),
+        active: new Set()
+      },
+      search: '',
+      sort: 'idAsc',
+      view: 'all',
+      filterCollapsed: false
+    };
 
-    function uniq(arr){ return [...new Set(arr.filter(Boolean))]; }
-    function escapeHtml(v){
-      return String(v ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    const $ = (sel) => document.querySelector(sel);
+
+    function escapeHtml(str = '') {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
-    function tagSort(tags, preferred){
-      const rest = tags.filter(t => !preferred.includes(t)).sort((a,b)=>a.localeCompare(b,'ko'));
-      return [...preferred.filter(t => tags.includes(t)), ...rest];
-    }
-    function localizeGroup(v){
-      const map = {
-        'Armed Detective Agency':'무장탐정사',
-        'Port Mafia':'포트 마피아',
-        'Guild':'길드',
-        'Decay of the Angel':'천인오쇠',
-        'Rats in the House of the Dead':'쥐의 집',
-        'Independent':'무소속',
-        'Mimic':'미믹',
-        'Supernatural Ability Special Investigation Division':'이능특무과',
-        'Order of the Clock Tower':'시계탑'
+
+    function normalizeCard(card) {
+      const leaderText = card.leader_tags_final_text || card.leader_tags_auto_text || '';
+      const activeText = card.active_tags_final_text || card.active_tags_auto_text || '';
+
+      const leaderArr = CONFIG.USE_FINAL_TAG_TEXT
+        ? splitPipe(card.leader_tags_final_text || card.leader_tags_auto_text || '')
+        : (Array.isArray(card.filter_leader) ? card.filter_leader : splitPipe(card.leader_tags_auto_text || ''));
+
+      const activeArr = CONFIG.USE_FINAL_TAG_TEXT
+        ? splitPipe(card.active_tags_final_text || card.active_tags_auto_text || '')
+        : (Array.isArray(card.filter_active) ? card.filter_active : splitPipe(card.active_tags_auto_text || ''));
+
+      return {
+        ...card,
+        id: String(card.id || '').padStart(4, '0'),
+        no_jp: String(card.no_jp || card.id || '').padStart(4, '0'),
+        rarity_group: card.rarity_group || '',
+        type: card.type || '',
+        attribute: card.attribute || '',
+        affiliation: card.affiliation || '',
+        name_jp: card.name_jp || '',
+        character_name_jp: card.character_name_jp || '',
+        title_jp: card.title_jp || '',
+        thumb_url: card.thumb_url || '',
+        leader_skill_name: card.leader_skill_name || '',
+        leader_skill_raw: card.leader_skill_raw || '',
+        active_skill_name: card.active_skill_name || '',
+        active_skill_raw: card.active_skill_raw || '',
+        filter_leader: leaderArr,
+        filter_active: activeArr,
+        leader_tags_display_text: leaderText,
+        active_tags_display_text: activeText,
+        searchBlob: [
+          card.id,
+          card.no_jp,
+          card.name_jp,
+          card.character_name_jp,
+          card.character_name_en,
+          card.title_jp,
+          card.affiliation,
+          card.attribute,
+          card.type,
+          card.leader_skill_name,
+          card.leader_skill_raw,
+          card.active_skill_name,
+          card.active_skill_raw,
+          leaderText,
+          activeText
+        ].join(' ').toLowerCase()
       };
-      return map[v] || v || '';
-    }
-    function localizeAttribute(v){
-      const map = {'Crimson':'홍','Azure':'청','Emerald':'녹','Light':'광','Dark':'암'};
-      return map[v] || v || '';
-    }
-    function inferRarityInfo(card){
-      const hay = [card.rarity, card.title, card.title_jp, card.name, card.wiki_url].join(' ');
-      const m = hay.match(/\b(EX|SSR|SR|UR|R)(\+)?\b/i);
-      if (!m) return {base:'', display:''};
-      return {base:m[1].toUpperCase(), display:(m[1].toUpperCase() + (m[2] ? '+' : ''))};
-    }
-    function padId(v){
-      const s = String(v ?? '');
-      return /^\d+$/.test(s) ? s.padStart(4, '0') : s;
     }
 
-    function splitClauses(text){
-      return String(text || '')
-        .replace(/\s*&\s*/g, ' | ')
-        .replace(/\s+\band\b\s+/gi, ' | ')
-        .split(/\s+\|\s+|(?<=[.!?])\s+|\n+/)
-        .map(s => s.trim())
-        .filter(Boolean);
+    function splitPipe(text) {
+      if (!text) return [];
+      return [...new Set(String(text).split('|').map(v => v.trim()).filter(Boolean))];
     }
 
-    function hasAttackUpMeaning(text){
-      const t = String(text || '');
-      return /(ATK|attack power|attack|攻撃力|공격력)/i.test(t) && /(up|increase|increases|boost|アップ|증가|by\s+\d+%)/i.test(t);
-    }
-    function hasDamageReductionMeaning(text){
-      return /(reduce|reduces|reduced|damage down|ダメージ.*ダウン|받는 데미지.*감소|受けるダメージ)/i.test(String(text || ''));
-    }
-    function hasTeamAllMeaning(text){
-      return /(all team|all members|team members|all allies|チーム全員)/i.test(String(text || ''));
-    }
-    function hasSingleTargetMeaning(text){
-      const t = String(text || '');
-      return /(single enemy|one enemy|an enemy|enemy only|to 1 enemy|to one enemy|one foe|single foe|one opponent|敵単体|敵1体|敵一体)/i.test(t);
-    }
-    function hasAllTargetMeaning(text){
-      const t = String(text || '');
-      return /(all enemies|all enemyies|enemy team|to all enemies|all foes|all opponents|敵全体)/i.test(t);
-    }
-    function hasDamageMeaning(text){
-      return /(damage|damages|攻撃|ダメージ)/i.test(String(text || '')) || /(ATK|attack power|攻撃力|공격력)\s*[x×]\s*[0-9.]+/i.test(String(text || ''));
-    }
-    function hasOrbChangeMeaning(text){
-      return /(Affinity Orbs?|orbs?|marbles?|玉|珠|変換|change|changed|convert|transforms?)/i.test(String(text || ''));
+    function getSelectedCount() {
+      return FILTER_DEFS.reduce((sum, def) => sum + state.filters[def.key].size, 0);
     }
 
-    function attrTagsInText(text){
-      const t = String(text || '');
-      const out = [];
-      if (/\bCrimson\b|紅属性/i.test(t)) out.push('홍속공증');
-      if (/\bAzure\b|蒼属性|青属性/i.test(t)) out.push('청속공증');
-      if (/\bEmerald\b|翠属性|緑属性/i.test(t)) out.push('녹속공증');
-      if (/\bLight\b|光属性/i.test(t)) out.push('광속공증');
-      if (/\bDark\b|闇属性|暗属性/i.test(t)) out.push('암속공증');
-      return out;
-    }
+    function renderFilters() {
+      const root = $('#filtersRoot');
+      root.innerHTML = FILTER_DEFS.map(def => {
+        const chips = def.options.map(opt => {
+          const on = state.filters[def.key].has(opt) ? 'on' : '';
+          return `<button class="chip ${on}" type="button" data-filter-key="${def.key}" data-filter-value="${escapeHtml(opt)}">${escapeHtml(opt)}</button>`;
+        }).join('');
 
-    function extractAttackUpAttrTags(text){
-      const clauses = splitClauses(text);
-      const tags = [];
-      for (const clause of clauses){
-        if (!hasAttackUpMeaning(clause)) continue;
-        if (hasDamageReductionMeaning(clause)) continue;
-        if (hasOrbChangeMeaning(clause)) continue;
-        tags.push(...attrTagsInText(clause));
-      }
-      return uniq(tags);
-    }
+        return `
+          <section class="filter-group">
+            <div class="filter-title">
+              <h3>${escapeHtml(def.label)}</h3>
+              <span>${state.filters[def.key].size}개 선택</span>
+            </div>
+            <div class="chip-wrap">${chips}</div>
+          </section>
+        `;
+      }).join('');
 
-    function detectPercent(text){
-      const m = String(text || '').match(/(\d+)\s*%/);
-      return m ? m[1] : '';
-    }
-    function detectTurns(text){
-      const m = String(text || '').match(/(\d+)\s*turns?/i) || String(text || '').match(/(\d+)\s*ターン/);
-      return m ? m[1] : '';
-    }
-    function detectMultiplier(text){
-      const m = String(text || '').match(/ATK\s*[x×]\s*([0-9.]+)/i)
-        || String(text || '').match(/attack power\s*[x×]\s*([0-9.]+)/i)
-        || String(text || '').match(/공격력\s*[x×]\s*([0-9.]+)/i)
-        || String(text || '').match(/攻撃力\s*[x×]\s*([0-9.]+)/i);
-      return m ? m[1] : '';
-    }
-
-    function computeLeaderTags(card){
-      const t = String(card.leader_skill_text || '');
-      const tags = [];
-      const clauses = splitClauses(t);
-
-      for (const clause of clauses){
-        if (!hasAttackUpMeaning(clause)) continue;
-        if (hasDamageReductionMeaning(clause)) continue;
-        if (hasOrbChangeMeaning(clause)) continue;
-
-        const attrs = attrTagsInText(clause);
-        if (hasTeamAllMeaning(clause) || (!attrs.length && !/(Armed Detective Agency|武装探偵社|Port Mafia|ポートマフィア)/i.test(clause))) {
-          tags.push('전체공증');
-        }
-        if (/(Armed Detective Agency|武装探偵社)/i.test(clause)) tags.push('무장탐정사공증');
-        if (/(Port Mafia|ポートマフィア)/i.test(clause)) tags.push('포트마피아공증');
-        tags.push(...attrs);
-      }
-      return uniq(tags);
-    }
-
-    function computeActiveTags(card){
-      const t = String(card.active_skill_text || '');
-      const tags = [];
-      const clauses = splitClauses(t);
-
-      for (const clause of clauses){
-        if (hasAllTargetMeaning(clause) && hasDamageMeaning(clause)) {
-          tags.push('전체공격');
-        } else if (hasSingleTargetMeaning(clause) && hasDamageMeaning(clause)) {
-          tags.push('단일공격');
-        } else if (!hasAllTargetMeaning(clause) && detectMultiplier(clause) && !hasAttackUpMeaning(clause)) {
-          tags.push('단일공격');
-        }
-
-        if (hasAttackUpMeaning(clause) && !hasDamageReductionMeaning(clause) && !hasOrbChangeMeaning(clause)) {
-          const attrs = attrTagsInText(clause);
-          if (hasTeamAllMeaning(clause) || !attrs.length) tags.push('전체공증');
-          tags.push(...attrs);
-        }
-      }
-
-      return uniq(tags);
-    }
-
-    function normalizeCards(rawCards){
-      return rawCards.map(card => {
-        const rarity = inferRarityInfo(card);
-        const leader_tags_calc = computeLeaderTags(card);
-        const active_tags_calc = computeActiveTags(card);
-        return {
-          ...card,
-          rarity_base: rarity.base,
-          rarity_display: rarity.display || rarity.base,
-          display_group: localizeGroup(card.group),
-          display_attribute: localizeAttribute(card.attribute),
-          display_title: card.title_jp || card.title || card.name || '(이름 없음)',
-          display_subname: card.title_jp ? (card.name || '') : '',
-          display_id: padId(card.id),
-          leader_tags_calc,
-          active_tags_calc
-        };
+      root.querySelectorAll('[data-filter-key]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.filterKey;
+          const value = btn.dataset.filterValue;
+          const set = state.filters[key];
+          if (set.has(value)) set.delete(value);
+          else set.add(value);
+          renderFilters();
+          applyFilters();
+        });
       });
+
+      $('#selectedCountPill').textContent = `선택된 필터 ${getSelectedCount()}개`;
     }
 
-    function dedupeLinePairs(lines){
-      const out = [];
-      const seen = new Set();
-      for (const item of lines){
-        const key = item.join('|');
-        if (!seen.has(key)){
-          seen.add(key);
-          out.push(item);
-        }
+    function matchesGroup(selectedSet, valueOrArray) {
+      if (!selectedSet || selectedSet.size === 0) return true;
+
+      if (Array.isArray(valueOrArray)) {
+        return valueOrArray.some(v => selectedSet.has(v));
       }
-      return out;
+      return selectedSet.has(valueOrArray);
     }
 
-    function leaderSummaryLines(card){
-      const tags = card.leader_tags_calc || [];
-      const chosen = state.selectedLeaderTags.size ? tags.filter(t => state.selectedLeaderTags.has(t)) : tags;
-      const text = String(card.leader_skill_text || '');
-      const pct = detectPercent(text);
-      const lines = [];
-      for (const tag of chosen){
-        if (tag === '전체공증') lines.push([tag, `팀 전체 공격력 ${pct || '?'}% 증가`]);
-        else if (tag === '무장탐정사공증') lines.push([tag, `무장탐정사 공격력 ${pct || '?'}% 증가`]);
-        else if (tag === '포트마피아공증') lines.push([tag, `포트 마피아 공격력 ${pct || '?'}% 증가`]);
-        else if (tag.endsWith('속공증')) lines.push([tag, `${tag.replace('공증','')} 공격력 ${pct || '?'}% 증가`]);
-      }
-      return dedupeLinePairs(lines);
-    }
+    function applyFilters() {
+      const q = state.search.trim().toLowerCase();
+      let result = state.cards.filter(card => {
+        if (q && !card.searchBlob.includes(q)) return false;
+        if (!matchesGroup(state.filters.rarity_group, card.rarity_group)) return false;
+        if (!matchesGroup(state.filters.type, card.type)) return false;
+        if (!matchesGroup(state.filters.attribute, card.attribute)) return false;
+        if (!matchesGroup(state.filters.affiliation, card.affiliation)) return false;
+        if (!matchesGroup(state.filters.leader, card.filter_leader)) return false;
+        if (!matchesGroup(state.filters.active, card.filter_active)) return false;
 
-    function activeSummaryLines(card){
-      const tags = card.active_tags_calc || [];
-      const chosen = state.selectedActiveTags.size ? tags.filter(t => state.selectedActiveTags.has(t)) : tags;
-      const text = String(card.active_skill_text || '');
-      const pct = detectPercent(text);
-      const turns = detectTurns(text);
-      const mul = detectMultiplier(text);
-      const lines = [];
-      for (const tag of chosen){
-        if (tag === '단일공격') lines.push([tag, `적 1명에게 공격력 ${mul || '?'}배 대미지`]);
-        else if (tag === '전체공격') lines.push([tag, `적 전체에게 공격력 ${mul || '?'}배 대미지`]);
-        else if (tag === '전체공증') lines.push([tag, `팀 전체 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
-        else if (tag.endsWith('속공증')) lines.push([tag, `${tag.replace('공증','')} 공격력 ${pct || '?'}% 증가${turns ? ` (${turns}턴)` : ''}`]);
-      }
-      return dedupeLinePairs(lines);
-    }
+        if (state.view === 'hasThumb' && !card.thumb_url) return false;
+        if (state.view === 'hasLeader' && !card.leader_skill_raw) return false;
+        if (state.view === 'hasActive' && !card.active_skill_raw) return false;
 
-    function makeChip(tag, activeSet, onToggle){
-      const btn = document.createElement('button');
-      btn.className = 'chip' + (activeSet.has(tag) ? ' active' : '');
-      btn.textContent = tag;
-      btn.onclick = () => onToggle(tag);
-      return btn;
-    }
-
-    function buildTagAreas(){
-      const rarityTags = rarityOrder.filter(r => state.cards.some(c => c.rarity_base === r));
-      const leaderTags = tagSort(uniq(state.cards.flatMap(c => c.leader_tags_calc || [])), leaderPreferredOrder);
-      const activeTags = tagSort(uniq(state.cards.flatMap(c => c.active_tags_calc || [])), activePreferredOrder);
-
-      rarityContainer.innerHTML = '';
-      leaderContainer.innerHTML = '';
-      activeContainer.innerHTML = '';
-
-      for (const tag of rarityTags){
-        rarityContainer.appendChild(makeChip(tag, state.selectedRarityTags, (t) => {
-          state.selectedRarityTags.has(t) ? state.selectedRarityTags.delete(t) : state.selectedRarityTags.add(t);
-          buildTagAreas(); render();
-        }));
-      }
-      for (const tag of leaderTags){
-        leaderContainer.appendChild(makeChip(tag, state.selectedLeaderTags, (t) => {
-          state.selectedLeaderTags.has(t) ? state.selectedLeaderTags.delete(t) : state.selectedLeaderTags.add(t);
-          buildTagAreas(); render();
-        }));
-      }
-      for (const tag of activeTags){
-        activeContainer.appendChild(makeChip(tag, state.selectedActiveTags, (t) => {
-          state.selectedActiveTags.has(t) ? state.selectedActiveTags.delete(t) : state.selectedActiveTags.add(t);
-          buildTagAreas(); render();
-        }));
-      }
-    }
-
-    function buildSelectOptions(){
-      const groups = uniq(state.cards.map(c => c.display_group).filter(Boolean)).sort((a,b)=>a.localeCompare(b,'ko'));
-      const attrs = uniq(state.cards.map(c => c.display_attribute).filter(Boolean)).sort((a,b)=>a.localeCompare(b,'ko'));
-      for (const g of groups){
-        const opt = document.createElement('option');
-        opt.value = g;
-        opt.textContent = g;
-        groupSelect.appendChild(opt);
-      }
-      for (const a of attrs){
-        const opt = document.createElement('option');
-        opt.value = a;
-        opt.textContent = a;
-        attributeSelect.appendChild(opt);
-      }
-    }
-
-    function matchesAnyTag(cardTags, selectedSet){
-      if (!selectedSet.size) return true;
-      const list = Array.isArray(cardTags) ? cardTags : [];
-      return [...selectedSet].some(tag => list.includes(tag));
-    }
-
-    function matchesRarity(card){
-      if (!state.selectedRarityTags.size) return true;
-      return state.selectedRarityTags.has(card.rarity_base);
-    }
-
-    function matchesSearch(card, search){
-      if (!search) return true;
-      const leaderLines = leaderSummaryLines(card).map(x=>x[1]).join(' ');
-      const activeLines = activeSummaryLines(card).map(x=>x[1]).join(' ');
-      const hay = [
-        card.display_id, card.display_title, card.display_subname, card.display_group, card.display_attribute,
-        card.rarity_display, leaderLines, activeLines
-      ].join(' ').toLowerCase();
-      return hay.includes(search.toLowerCase());
-    }
-
-    function sortCards(cards){
-      if (state.sort === 'name') return cards.sort((a,b)=>String(a.display_title).localeCompare(String(b.display_title),'ko'));
-      return cards.sort((a,b)=>Number(a.id || 0) - Number(b.id || 0));
-    }
-
-    function filterCards(){
-      const filtered = state.cards.filter(card => {
-        if (state.group && card.display_group !== state.group) return false;
-        if (state.attribute && card.display_attribute !== state.attribute) return false;
-        if (!matchesRarity(card)) return false;
-        if (!matchesAnyTag(card.leader_tags_calc, state.selectedLeaderTags)) return false;
-        if (!matchesAnyTag(card.active_tags_calc, state.selectedActiveTags)) return false;
-        if (!matchesSearch(card, state.search)) return false;
         return true;
       });
-      return sortCards(filtered);
+
+      result = sortCards(result, state.sort);
+      state.filtered = result;
+      renderCards();
+      updateStatus();
     }
 
-    function renderSkillBox(label, lines, rawText){
-      const content = lines.length
-        ? lines.map(([tag, line]) => `<div class="summary-line"><span class="summary-tag">${escapeHtml(tag)}</span>${escapeHtml(line)}</div>`).join('')
-        : `<div class="summary-line">해당 조건에 맞는 태그 요약이 없습니다.</div>`;
-      const raw = rawText
-        ? `<details class="raw"><summary>원문 보기</summary><pre>${escapeHtml(rawText)}</pre></details>`
-        : '';
-      return `<div class="skill-box"><div class="skill-label">${escapeHtml(label)}</div>${content}${raw}</div>`;
+    function sortCards(cards, mode) {
+      const arr = [...cards];
+      const rarityWeight = { EX: 5, UR: 4, SSR: 3, SR: 2, R: 1 };
+
+      switch (mode) {
+        case 'idDesc':
+          arr.sort((a, b) => Number(b.id) - Number(a.id));
+          break;
+        case 'nameAsc':
+          arr.sort((a, b) => (a.name_jp || '').localeCompare(b.name_jp || '', 'ja'));
+          break;
+        case 'rarityDesc':
+          arr.sort((a, b) => {
+            const diff = (rarityWeight[b.rarity_group] || 0) - (rarityWeight[a.rarity_group] || 0);
+            return diff || Number(a.id) - Number(b.id);
+          });
+          break;
+        case 'idAsc':
+        default:
+          arr.sort((a, b) => Number(a.id) - Number(b.id));
+          break;
+      }
+      return arr;
     }
 
-    function render(){
-      const filtered = filterCards();
-      resultCount.textContent = `표시 카드 수: ${filtered.length.toLocaleString()} / 전체 ${state.cards.length.toLocaleString()}`;
-
-      if (!filtered.length){
-        cardGrid.innerHTML = `<div class="empty">조건에 맞는 카드가 없습니다.</div>`;
+    function renderCards() {
+      const grid = $('#cardGrid');
+      if (!state.filtered.length) {
+        grid.innerHTML = `<div class="empty">조건에 맞는 카드가 없습니다.<br>검색어 또는 필터를 다시 확인해 주세요.</div>`;
         return;
       }
 
-      cardGrid.innerHTML = filtered.map(card => {
-        const thumbHtml = card.thumb_url
-          ? `<img class="thumb" src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.display_title)}" loading="lazy" referrerpolicy="no-referrer" />`
-          : `<div class="thumb-fallback">이미지 없음</div>`;
-        const wikiLink = card.wiki_url
-          ? `<a class="link" href="${escapeHtml(card.wiki_url)}" target="_blank" rel="noopener noreferrer">위키 페이지 열기</a>`
-          : '';
-        const meta = [
-          card.rarity_display ? `<span class="badge">${escapeHtml(card.rarity_display)}</span>` : '',
-          card.display_group ? `<span class="badge">${escapeHtml(card.display_group)}</span>` : '',
-          card.display_attribute ? `<span class="badge">${escapeHtml(card.display_attribute)}</span>` : ''
-        ].join('');
-        const subtitle = [card.display_id ? `ID ${escapeHtml(card.display_id)}` : '', card.display_subname ? escapeHtml(card.display_subname) : ''].filter(Boolean).join(' · ');
+      grid.innerHTML = state.filtered.map(card => {
+        const metaPills = [card.rarity_group, card.attribute, card.type, card.affiliation]
+          .filter(Boolean)
+          .map(v => `<span class="pill">${escapeHtml(v)}</span>`)
+          .join('');
+
+        const leaderTags = card.filter_leader.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join('');
+        const activeTags = card.filter_active.map(v => `<span class="tag">${escapeHtml(v)}</span>`).join('');
+
+        const fandomBtn = card.fandom_url ? `<a class="link-btn" href="${escapeHtml(card.fandom_url)}" target="_blank" rel="noopener">Fandom</a>` : '';
+        const gamerchBtn = card.gamerch_url ? `<a class="link-btn" href="${escapeHtml(card.gamerch_url)}" target="_blank" rel="noopener">Gamerch</a>` : '';
 
         return `
           <article class="card">
             <div class="card-top">
-              <div>${thumbHtml}</div>
+              <div class="thumb-wrap">
+                ${card.thumb_url
+                  ? `<img src="${escapeHtml(card.thumb_url)}" alt="${escapeHtml(card.name_jp || card.id)}" loading="lazy" onerror="this.remove(); this.parentNode.innerHTML='<div class=\'thumb-fallback\'>이미지<br>로드 실패</div>';">`
+                  : `<div class="thumb-fallback">${CONFIG.IMAGE_FALLBACK_TEXT}</div>`}
+              </div>
               <div>
-                <h2 class="title">${escapeHtml(card.display_title)}</h2>
-                <div class="sub">${subtitle}</div>
-                <div class="meta">${meta}</div>
+                <div class="card-no">No.${escapeHtml(card.no_jp || card.id)}</div>
+                <div class="card-name">${escapeHtml(card.name_jp || card.character_name_jp || card.id)}</div>
+                <div class="meta-line">${metaPills}</div>
+                <div class="links">${fandomBtn}${gamerchBtn}</div>
               </div>
             </div>
-            <div class="body">
-              ${renderSkillBox('리더 스킬 요약', leaderSummaryLines(card), card.leader_skill_text || '')}
-              ${renderSkillBox('액티브 스킬 요약', activeSummaryLines(card), card.active_skill_text || '')}
+
+            <div class="card-body">
+              <section class="skill-box">
+                <div class="skill-label"><span>리더 스킬</span></div>
+                <div class="skill-name">${escapeHtml(card.leader_skill_name || '정보 없음')}</div>
+                <div class="skill-text">${escapeHtml(card.leader_skill_raw || '정보 없음')}</div>
+                ${leaderTags ? `<div class="tag-row">${leaderTags}</div>` : ''}
+              </section>
+
+              <section class="skill-box">
+                <div class="skill-label"><span>액티브 스킬</span></div>
+                <div class="skill-name">${escapeHtml(card.active_skill_name || '정보 없음')}</div>
+                <div class="skill-text">${escapeHtml(card.active_skill_raw || '정보 없음')}</div>
+                ${activeTags ? `<div class="tag-row">${activeTags}</div>` : ''}
+              </section>
             </div>
-            <div class="footer">${wikiLink}</div>
-          </article>`;
+          </article>
+        `;
       }).join('');
     }
 
-    async function loadCards(){
-      loadState.textContent = 'cards.json 불러오는 중...';
-      try{
-        const res = await fetch('./cards.json', {cache:'no-store'});
+    function updateStatus() {
+      $('#statusText').textContent = `전체 ${state.cards.length}장 중 ${state.filtered.length}장 표시`;
+      $('#summaryTop').textContent = `로딩 완료 · 총 ${state.cards.length}장`;
+      $('#selectedCountPill').textContent = `선택된 필터 ${getSelectedCount()}개`;
+    }
+
+    async function loadCards() {
+      $('#summaryTop').textContent = '데이터 불러오는 중...';
+      $('#sourceLabel').textContent = CONFIG.DATA_URL;
+
+      try {
+        const res = await fetch(CONFIG.DATA_URL, { cache: 'no-store' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const raw = await res.json();
-        state.cards = normalizeCards(raw);
-        buildSelectOptions();
-        buildTagAreas();
-        render();
-        loadState.textContent = '로드 완료';
-      }catch(err){
-        console.error(err);
-        loadState.textContent = '로드 실패';
-        cardGrid.innerHTML = `<div class="empty">
-          cards.json을 읽지 못했습니다.<br><br>
-          GitHub Pages 또는 로컬 서버에서 같은 폴더에 cards.json이 있는지 확인해 주세요.
-        </div>`;
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('JSON 최상위 구조가 배열이 아닙니다.');
+
+        state.cards = data.map(normalizeCard);
+        renderFilters();
+        applyFilters();
+      } catch (err) {
+        $('#summaryTop').textContent = '데이터 로드 실패';
+        $('#cardGrid').innerHTML = `
+          <div class="empty">
+            데이터를 불러오지 못했습니다.<br>
+            <br>
+            에러: ${escapeHtml(err.message || String(err))}<br>
+            <br>
+            <strong>확인할 것</strong><br>
+            1. CONFIG.DATA_URL 주소가 raw JSON 주소인지<br>
+            2. CORS 또는 공개 접근이 가능한지<br>
+            3. JSON 최상위가 배열인지
+          </div>
+        `;
       }
     }
 
-    searchInput.addEventListener('input', e => { state.search = e.target.value.trim(); render(); });
-    groupSelect.addEventListener('change', e => { state.group = e.target.value; render(); });
-    attributeSelect.addEventListener('change', e => { state.attribute = e.target.value; render(); });
-    sortSelect.addEventListener('change', e => { state.sort = e.target.value; render(); });
+    function resetFilters() {
+      FILTER_DEFS.forEach(def => state.filters[def.key].clear());
+      state.search = '';
+      state.sort = 'idAsc';
+      state.view = 'all';
+      $('#searchInput').value = '';
+      $('#sortSelect').value = 'idAsc';
+      $('#viewSelect').value = 'all';
+      renderFilters();
+      applyFilters();
+    }
 
-    document.getElementById('clearLeader').onclick = () => { state.selectedLeaderTags.clear(); buildTagAreas(); render(); };
-    document.getElementById('clearActive').onclick = () => { state.selectedActiveTags.clear(); buildTagAreas(); render(); };
-    document.getElementById('clearRarity').onclick = () => { state.selectedRarityTags.clear(); buildTagAreas(); render(); };
-    document.getElementById('clearAll').onclick = () => {
-      state.selectedLeaderTags.clear();
-      state.selectedActiveTags.clear();
-      state.selectedRarityTags.clear();
-      state.search=''; state.group=''; state.attribute=''; state.sort='id';
-      searchInput.value=''; groupSelect.value=''; attributeSelect.value=''; sortSelect.value='id';
-      buildTagAreas(); render();
-    };
+    function bindEvents() {
+      $('#searchInput').addEventListener('input', (e) => {
+        state.search = e.target.value;
+        applyFilters();
+      });
 
+      $('#sortSelect').addEventListener('change', (e) => {
+        state.sort = e.target.value;
+        applyFilters();
+      });
+
+      $('#viewSelect').addEventListener('change', (e) => {
+        state.view = e.target.value;
+        applyFilters();
+      });
+
+      $('#resetBtn').addEventListener('click', resetFilters);
+      $('#reloadBtn').addEventListener('click', loadCards);
+      $('#collapseBtn').addEventListener('click', () => {
+        state.filterCollapsed = !state.filterCollapsed;
+        $('#filterPanel').style.display = state.filterCollapsed ? 'none' : 'block';
+      });
+    }
+
+    bindEvents();
+    renderFilters();
     loadCards();
   </script>
 </body>
