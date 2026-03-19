@@ -5,7 +5,7 @@
     "no_en": "",
     "rarity": "R",
     "rarity_group": "R",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "R 中島敦",
@@ -111,7 +111,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［月下獣］中島敦",
@@ -290,7 +290,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［武装探偵社］国木田独歩",
@@ -600,7 +600,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［武装探偵社］宮沢賢治",
@@ -889,7 +889,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［悪食］芥川龍之介",
@@ -1055,7 +1055,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［ポートマフィア］泉鏡花",
@@ -1136,7 +1136,7 @@
     "no_en": "",
     "rarity": "R",
     "rarity_group": "R",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "R 梶井基次郎",
@@ -1186,7 +1186,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［檸檬爆弾］梶井基次郎",
@@ -1238,7 +1238,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［ポートマフィア］中原中也",
@@ -1421,7 +1421,7 @@
     "no_en": "",
     "rarity": "R",
     "rarity_group": "R",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "R 銀",
@@ -1448,7 +1448,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［ポートマフィア］銀",
@@ -1500,7 +1500,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［仮装招宴］国木田独歩",
@@ -1656,7 +1656,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［降誕祭］中島敦",
@@ -1812,7 +1812,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［正月］太宰治",
@@ -1945,7 +1945,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［潜入］谷崎潤一郎",
@@ -2022,7 +2022,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［人上人不造］福沢諭吉",
@@ -2130,7 +2130,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［謎の包帯男］太宰治",
@@ -2319,7 +2319,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［重力使い］中原中也",
@@ -2431,7 +2431,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［ホワイトデー］中島敦",
@@ -2483,7 +2483,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［水着］江戸川乱歩",
@@ -2718,7 +2718,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［Lupin］織田作之助",
@@ -2924,7 +2924,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［十人長］立原道造",
@@ -3026,7 +3026,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［買い物］与謝野晶子",
@@ -3076,7 +3076,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "SSR［DEAD APPLE］澁澤龍彦",
@@ -3095,7 +3095,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "광속성 공증"
     ],
     "active_tags_detail": []
@@ -3133,7 +3133,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "UR［月下獣］中島敦",
@@ -3424,7 +3424,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［デート］泉鏡花",
@@ -3443,7 +3443,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -3478,7 +3478,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［組合］ルーシー・M",
@@ -3636,7 +3636,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "죽음의 집의 쥐",
     "character_name_jp": "SR［龍頭抗争］フョードル・D",
@@ -3696,7 +3696,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［龍頭抗争］太宰治",
@@ -3715,7 +3715,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -3781,7 +3781,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［学園］江戸川乱歩",
@@ -3961,7 +3961,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［夏服］中原中也",
@@ -3986,7 +3986,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［西瓜割り］中島敦",
@@ -4005,7 +4005,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -4196,7 +4196,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［黒の時代］坂口安吾",
@@ -4327,7 +4327,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［夏祭り］福沢諭吉",
@@ -4346,7 +4346,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -4483,7 +4483,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "암속성 공증"
     ],
     "active_tags_detail": []
@@ -4494,7 +4494,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "UR［檸檬爆弾］梶井基次郎",
@@ -4514,7 +4514,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -4577,7 +4577,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［中華］与謝野晶子",
@@ -4766,7 +4766,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［怒り］谷崎潤一郎",
@@ -4785,7 +4785,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -4795,7 +4795,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［正装］太宰治",
@@ -4814,7 +4814,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -4880,7 +4880,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［バンド］芥川龍之介",
@@ -4902,7 +4902,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -5067,7 +5067,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［バンド］樋口一葉",
@@ -5144,7 +5144,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［診察］与謝野晶子",
@@ -5163,7 +5163,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -5252,7 +5252,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［仮装招宴］芥川龍之介",
@@ -5331,7 +5331,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［喫茶］中原中也",
@@ -5350,7 +5350,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -5470,7 +5470,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［降誕祭］宮沢賢治",
@@ -5489,7 +5489,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -5692,7 +5692,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［DEAD APPLE］中島敦",
@@ -5902,7 +5902,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［賀正］織田作之助",
@@ -5973,7 +5973,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "청속성 공증"
     ],
     "active_tags_detail": []
@@ -6009,7 +6009,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［羽根突き］泉鏡花",
@@ -6028,7 +6028,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -6063,7 +6063,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［冬服］太宰治",
@@ -6083,7 +6083,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -6495,7 +6495,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -6504,7 +6504,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［無邪気な名探偵］江戸川乱歩",
@@ -6527,10 +6527,10 @@
     ],
     "leader_tags_detail": [
       "무장 탐정사 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -6730,7 +6730,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［赤毛の少女人形］ルーシー・M",
@@ -6750,7 +6750,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -6818,7 +6818,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［寝間着］宮沢賢治",
@@ -6837,7 +6837,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -6922,7 +6922,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［新学期］中原中也",
@@ -6943,11 +6943,11 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "광속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "광속성 공증"
     ]
   },
@@ -7017,7 +7017,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［春祭り］尾崎紅葉",
@@ -7181,7 +7181,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［お遊戯会］中島敦",
@@ -7235,7 +7235,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "이능특무과",
     "character_name_jp": "SSR［正体］坂口安吾",
@@ -7316,7 +7316,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［ヰタ・セクスアリス］森鴎外",
@@ -7453,7 +7453,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［休日］芥川龍之介",
@@ -7621,7 +7621,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［緋文字］ナサニエル・H",
@@ -7642,7 +7642,7 @@
       "단일 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -7799,7 +7799,7 @@
     "no_en": "",
     "rarity": "R",
     "rarity_group": "R",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "R マーガレット・M",
@@ -7818,7 +7818,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -7965,7 +7965,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［正装］中原中也",
@@ -7984,7 +7984,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -8153,7 +8153,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［尋問］谷崎潤一郎",
@@ -8203,7 +8203,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［羅生門・月下獣］芥川龍之介",
@@ -8225,11 +8225,11 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "암속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "암속성 공증"
     ]
   },
@@ -8239,7 +8239,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "UR［人上人不造］福沢諭吉",
@@ -8324,7 +8324,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［梅雨］太宰治",
@@ -8345,7 +8345,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -8355,7 +8355,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "죽음의 집의 쥐",
     "character_name_jp": "SSR［魔人］フョードル・D",
@@ -8376,10 +8376,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -8444,7 +8444,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "SR［演繹］綾辻行人",
@@ -8463,7 +8463,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -8671,7 +8671,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［夢］織田作之助",
@@ -8891,7 +8891,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［一閃］泉鏡花",
@@ -9161,7 +9161,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［秋色遊歩］樋口一葉",
@@ -9182,10 +9182,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -9344,7 +9344,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［カジノ］江戸川乱歩",
@@ -9365,10 +9365,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -9680,7 +9680,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［紅色の女王］尾崎紅葉",
@@ -9699,7 +9699,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -9790,7 +9790,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［雪の降誕祭］ジョン・S",
@@ -9840,7 +9840,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［白虎の決意］中島敦",
@@ -9975,7 +9975,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "UR［黒の時代］坂口安吾",
@@ -9999,7 +9999,7 @@
       "포트 마피아 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -10068,7 +10068,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［新春の宴］フランシス・F",
@@ -10089,10 +10089,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "청속성 공증"
     ]
   },
@@ -10165,7 +10165,7 @@
     "no_en": "",
     "rarity": "R",
     "rarity_group": "R",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "R 夢野久作",
@@ -10192,7 +10192,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［中華］国木田独歩",
@@ -10292,7 +10292,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［白衣の男］森鴎外",
@@ -10585,7 +10585,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［覚悟］樋口一葉",
@@ -10797,7 +10797,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［洋菓子］谷崎潤一郎",
@@ -10816,7 +10816,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -10826,7 +10826,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［正装］ナサニエル・H",
@@ -10990,7 +10990,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［人間失格・超推理］太宰治",
@@ -11011,11 +11011,11 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "청속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -11084,7 +11084,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［園児］フランシス・F",
@@ -11111,7 +11111,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［探偵］梶井基次郎",
@@ -11192,7 +11192,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［新学期］泉鏡花",
@@ -11212,7 +11212,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -11221,7 +11221,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［双つの黒］中原中也",
@@ -11321,7 +11321,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［夜桜遊歩］福沢諭吉",
@@ -11340,7 +11340,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -11547,7 +11547,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［組合］ポオ",
@@ -11568,10 +11568,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -11665,7 +11665,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［寝間着］夢野久作",
@@ -11950,7 +11950,7 @@
     "no_en": "",
     "rarity": "EX",
     "rarity_group": "EX",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "EX［半人半虎］中島敦",
@@ -11969,7 +11969,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -12126,7 +12126,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［水着］樋口一葉",
@@ -12209,7 +12209,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［水着］宮沢賢治",
@@ -12228,7 +12228,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -12263,7 +12263,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［大航海］泉鏡花",
@@ -12320,7 +12320,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［大航海］ハーマン・M",
@@ -12340,7 +12340,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -12504,7 +12504,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "UR［ヰタ・セクスアリス］森鴎外",
@@ -12528,7 +12528,7 @@
       "포트 마피아 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -12620,7 +12620,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［熱狂の音楽祭］中島敦",
@@ -12643,7 +12643,7 @@
     ],
     "leader_tags_detail": [
       "무장 탐정사 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -12917,7 +12917,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［知の巨人］ポオ",
@@ -12938,7 +12938,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -13054,7 +13054,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［学園大運動会］国木田独歩",
@@ -13237,7 +13237,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "SSR［序／探偵社設立秘話］織田作之助",
@@ -13374,7 +13374,7 @@
     "no_en": "",
     "rarity": "EX",
     "rarity_group": "EX",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "EX［龍の化身］澁澤龍彦",
@@ -13705,7 +13705,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［正装］夢野久作",
@@ -13892,7 +13892,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［童話］芥川龍之介",
@@ -13911,7 +13911,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -13998,7 +13998,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［灯火の降誕祭］太宰治",
@@ -14108,7 +14108,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［煌めきの祝宴］宮沢賢治",
@@ -14241,7 +14241,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［煌めきの祝宴］福沢諭吉",
@@ -14318,7 +14318,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "Order of the Clock Tower",
     "character_name_jp": "SSR［近衛騎士長］アガサ・C",
@@ -14491,7 +14491,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［初春の宴］広津柳浪",
@@ -14512,11 +14512,11 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "광속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -14785,7 +14785,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［遊園地］ラヴクラフト",
@@ -14864,7 +14864,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［僵尸］中島敦",
@@ -14943,7 +14943,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［僵尸］銀",
@@ -15074,7 +15074,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SR［ショコラ］ルイーザ・A",
@@ -15312,7 +15312,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［タロット］中島敦",
@@ -15333,7 +15333,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -15376,7 +15376,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［洋菓子］立原道造",
@@ -15397,10 +15397,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -15592,7 +15592,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［夜桜遊歩］国木田独歩",
@@ -15613,10 +15613,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -15710,7 +15710,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［新学期］江戸川乱歩",
@@ -15847,7 +15847,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［執事］フランシス・F",
@@ -16094,7 +16094,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［水族館］森鴎外",
@@ -16115,7 +16115,7 @@
       "단일 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -16125,7 +16125,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［水族館］銀",
@@ -16201,7 +16201,7 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "청속성 공증"
     ],
     "active_tags_detail": [
@@ -16268,7 +16268,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［梅雨］江戸川乱歩",
@@ -16407,7 +16407,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［音楽隊］中島敦",
@@ -16488,7 +16488,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［対峙］芥川龍之介",
@@ -16513,7 +16513,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［兄妹の日常］谷崎潤一郎",
@@ -16594,7 +16594,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［七夕］尾崎紅葉",
@@ -16621,7 +16621,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［七夕］芥川龍之介",
@@ -16852,7 +16852,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［百鬼夜行］泉鏡花",
@@ -16873,7 +16873,7 @@
       "단일 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -16910,7 +16910,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［百鬼夜行］与謝野晶子",
@@ -16935,7 +16935,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［夏祭り］ジョン・S",
@@ -17085,7 +17085,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［熱砂の御伽噺］梶井基次郎",
@@ -17227,7 +17227,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［秋色遊歩］マーク・T",
@@ -17463,7 +17463,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［十五夜］谷崎潤一郎",
@@ -17513,7 +17513,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［仮面舞踏会］芥川龍之介",
@@ -17534,7 +17534,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -17650,7 +17650,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［邂逅］太宰・中也",
@@ -17736,7 +17736,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［天体観測］谷崎潤一郎",
@@ -17865,7 +17865,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［星の降誕祭］マーガレット・M",
@@ -17915,7 +17915,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［星の降誕祭］ルーシー・M",
@@ -18114,7 +18114,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "죽음의 집의 쥐",
     "character_name_jp": "SSR［黒夜の正装］フョードル・D",
@@ -18133,7 +18133,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -18286,7 +18286,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［寅月］与謝野晶子",
@@ -18307,7 +18307,7 @@
       "단일 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -18565,7 +18565,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［百鬼夜行］中原中也",
@@ -18588,10 +18588,10 @@
     ],
     "leader_tags_detail": [
       "포트 마피아 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -18708,7 +18708,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［ショコラ］泉鏡花",
@@ -18728,7 +18728,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -18970,7 +18970,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［タロット］尾崎紅葉",
@@ -19024,7 +19024,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［梅雨］フランシス・F",
@@ -19178,7 +19178,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［自然遊楽］中島敦",
@@ -19288,7 +19288,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［百鬼夜行］太宰治",
@@ -19307,7 +19307,7 @@
     ],
     "active_tags_auto": [],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -19375,7 +19375,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "이능특무과",
     "character_name_jp": "SSR［大騒ぎの後始末］坂口安吾",
@@ -19395,7 +19395,7 @@
     ],
     "leader_tags_detail": [],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -19404,7 +19404,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［寫眞館］森鴎外",
@@ -19425,7 +19425,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -19709,7 +19709,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［雪の降誕祭］福沢諭吉",
@@ -19740,7 +19740,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SR［雪の降誕祭］春野綺羅子",
@@ -19791,7 +19791,7 @@
       "청속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증",
+      "적속성 공증",
       "청속성 공증"
     ]
   },
@@ -19884,7 +19884,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［輝きの祝宴］夢野久作",
@@ -19905,7 +19905,7 @@
       "전체 공격"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -19990,7 +19990,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［輝きの祝宴］広津柳浪",
@@ -20048,7 +20048,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［迎春の宴］泉鏡花",
@@ -20072,7 +20072,7 @@
       "무장 탐정사 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -20104,7 +20104,7 @@
     ],
     "leader_tags_detail": [
       "연합 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -20236,7 +20236,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［雪遊び］銀",
@@ -20257,10 +20257,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -20331,7 +20331,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［彩色］立原道造",
@@ -20562,7 +20562,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［夜桜遊歩］マーク・T",
@@ -20694,7 +20694,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SSR［寫眞館］樋口一葉",
@@ -20771,7 +20771,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "SSR［水族館］江戸川乱歩",
@@ -20795,7 +20795,7 @@
     ],
     "leader_tags_detail": [
       "무장 탐정사 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -20857,7 +20857,7 @@
     ],
     "leader_tags_detail": [
       "무장 탐정사 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -20946,7 +20946,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "SSR［七夕］ルーシー・M",
@@ -20967,7 +20967,7 @@
     "active_tags_auto": [],
     "leader_tags_detail": [
       "연합 공증",
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": []
   },
@@ -21145,7 +21145,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "SR［波乗り］太宰治",
@@ -21166,10 +21166,10 @@
       "속성별 공증 버프"
     ],
     "leader_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ],
     "active_tags_detail": [
-      "적[紅]속성 공증"
+      "적속성 공증"
     ]
   },
   {
@@ -21209,7 +21209,7 @@
     "no_en": "",
     "rarity": "UR",
     "rarity_group": "UR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "ナサニエル・H",
@@ -21367,7 +21367,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "広津柳浪",
@@ -21417,7 +21417,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "森鴎外",
@@ -21617,7 +21617,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "国木田独歩",
@@ -21692,7 +21692,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "",
@@ -21817,7 +21817,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "夢野久作",
@@ -21867,7 +21867,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "太宰治",
@@ -22042,7 +22042,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "ラヴクラフト",
@@ -22292,7 +22292,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "",
@@ -22467,7 +22467,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "谷崎ナオミ",
@@ -22492,7 +22492,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "中島敦",
@@ -22617,7 +22617,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "ルーシー・M",
@@ -22742,7 +22742,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "江戸川乱歩",
@@ -22917,7 +22917,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "",
@@ -23092,7 +23092,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "ジョン・S",
@@ -23242,7 +23242,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "中原中也",
@@ -23292,7 +23292,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "中島敦",
@@ -23417,7 +23417,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "澁澤龍彦",
@@ -23692,7 +23692,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "尾崎紅葉",
@@ -23717,7 +23717,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "泉鏡花",
@@ -23792,7 +23792,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무소속",
     "character_name_jp": "澁澤龍彦",
@@ -23892,7 +23892,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "연합",
     "character_name_jp": "フランシス・F",
@@ -24017,7 +24017,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "泉鏡花",
@@ -24242,7 +24242,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "무장 탐정사",
     "character_name_jp": "福沢諭吉",
@@ -24317,7 +24317,7 @@
     "no_en": "",
     "rarity": "SSR",
     "rarity_group": "SSR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "樋口一葉",
@@ -24367,7 +24367,7 @@
     "no_en": "",
     "rarity": "SR",
     "rarity_group": "SR",
-    "attribute": "적[紅]속성",
+    "attribute": "적속성",
     "type": "",
     "affiliation": "포트 마피아",
     "character_name_jp": "広津柳浪",
